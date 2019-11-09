@@ -1,16 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# DareBuddy
+## Fitness for Everyone
+Most of us have fitness goals but when it comes to actually implementing those goals many of us will run into stumbling blocks such as lack of knowledge or lack of motivation and consistency.  DareBuddy will help.  Although there are currently many fitness resources available they are either expensive, focus on a specific fitness population (Run Trackers, Starting Strength App) or they fail to address all of the needs of their target audience (Fitocracy - has social and tracking but limited information/programs unless you pay for a trainer). 
+DareBuddy wants to solve this problem.  It will use the world-class, open source fitness content provided by DAREBEE to provide users with information in the form of workouts and programs that fit their life and their goals.  It will help users stay consistent by implementing a workout tracking system with optional reminders.  It will provide motivation in the form of tracking and by creating a community of fitness seekers who can interact via challenges and messages.  
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Landing
+![Landing mockup](./images/slack_C5bwLir5IX.png)
+### Register
+![Landing mockup](./images\slack_TY2syjeCBD.png)
+### Log a Workout
+![Workout Log Page mockup](./images/slack_f9H5cdoTWA.png)
+### User
+![User page mockup](./images\chrome_AYQ921vDNo.png)
+### Activity Feed
+![Landing mockup](./images/chrome_X76ueey5jR.png)
 
 ### `npm test`
 
@@ -19,23 +24,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 
@@ -43,26 +35,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
