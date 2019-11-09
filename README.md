@@ -9,11 +9,11 @@ DareBuddy wants to solve this problem.  It will use the world-class, open source
 ### Landing
 ![Landing mockup](./images/slack_C5bwLir5IX.png)
 ### Register
-![Landing mockup](./images\slack_TY2syjeCBD.png)
+![Landing mockup](./images/slack_TY2syjeCBD.png)
 ### Log a Workout
 ![Workout Log Page mockup](./images/slack_f9H5cdoTWA.png)
 ### User
-![User page mockup](./images\chrome_AYQ921vDNo.png)
+![User page mockup](./images/chrome_AYQ921vDNo.png)
 ### Activity Feed
 ![Landing mockup](./images/chrome_X76ueey5jR.png)
 
