@@ -1,7 +1,11 @@
 const express = require("express");
-
 const routes = require("./routes");
 const app = express();
+require("dotenv").config();
+// const session = require("express-session");
+
+var db = require("./models");
+
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
@@ -17,8 +21,15 @@ app.use(routes);
 // Connect to the Mongo DB
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist")
 
+let syncOptions = { force: false };
 
-// Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+// Starting the server, syncing our models ------------------------------------/
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
 });

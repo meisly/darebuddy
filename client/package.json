@@ -8,6 +8,7 @@
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.18.0",
     "react": "^16.6.3",
+    "react-calendar": "^2.19.2",
     "react-collapsible": "^2.6.0",
     "react-dom": "^16.6.3",
     "react-modal": "^3.11.1",
