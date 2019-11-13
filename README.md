@@ -9,30 +9,19 @@ DareBuddy wants to solve this problem.  It will use the world-class, open source
 ### Landing
 ![Landing mockup](./images/slack_C5bwLir5IX.png)
 ### Register
-![Landing mockup](./images\slack_TY2syjeCBD.png)
+![Landing mockup](./images/slack_TY2syjeCBD.png)
 ### Log a Workout
 ![Workout Log Page mockup](./images/slack_f9H5cdoTWA.png)
 ### User
-![User page mockup](./images\chrome_AYQ921vDNo.png)
+![User page mockup](./images/chrome_AYQ921vDNo.png)
 ### Activity Feed
 ![Landing mockup](./images/chrome_X76ueey5jR.png)
 
-### `npm test`
+## Resources
+### Darebee
+[DAREBEE](https://darebee.com/programs.html) is a free, open source, nonprofit global fitness resource.  They are supported by user donations so if you like what you see consider [becoming a donor.  Even small donations make a difference!](https://darebee.com/support.html)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### More coming
 
-### `npm run build`
-
-
-
-### `npm run eject`
-
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-
+## Author
+Tierra Farris
