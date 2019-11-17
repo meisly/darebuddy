@@ -7,10 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import { Link } from "react-router-dom";
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { useAuth0 } from "../../react-auth0-spa";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,15 +24,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MenuAppBar() {
+const NavBar = () => {
     const classes = useStyles();
-    const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-
-    const handleChange = event => {
-        setAuth(event.target.checked);
-    };
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
     const handleMenu = event => {
         setAnchorEl(event.currentTarget);
@@ -44,19 +40,22 @@ export default function MenuAppBar() {
 
     return (
         <div className={classes.root}>
-            <FormGroup>
-                <FormControlLabel
-                    control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-                    label={auth ? 'Logout' : 'Login'}
-                />
-            </FormGroup>
+
             <AppBar position="static">
                 <Toolbar>
-
                     <Typography variant="h6" className={classes.title}>
                         DareBuddy
-          </Typography>
-                    {auth && (
+                    </Typography>
+                    {!isAuthenticated && (
+                        <button
+                            onClick={() =>
+                                loginWithRedirect({})
+                            }
+                        >
+                            Log in
+                      </button>
+                    )}
+                    {isAuthenticated && (
                         <div>
                             <IconButton
                                 aria-label="account of current user"
@@ -82,9 +81,17 @@ export default function MenuAppBar() {
                                 open={open}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Log a Workout</MenuItem>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                     <Link to="/log" style={{textDecoration: "none", color: "black"}}>
+                                         Log a Workout
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <Link to="/user" style={{textDecoration: "none", color: "black"}}>
+                                        Profile
+                                    </Link>
+                                </MenuItem>
                             </Menu>
                         </div>
                     )}
@@ -93,3 +100,5 @@ export default function MenuAppBar() {
         </div>
     );
 }
+
+export default NavBar;

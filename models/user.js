@@ -16,21 +16,6 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true
             }
         },
-        password: {
-            type: DataTypes.STRING,
-            len: [1, 2000],
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
-        salt: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
         profileUrl: {
             type: DataTypes.TEXT,
             allowNull: true,
@@ -47,11 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
         }
     });
-    users.associate = function (models) {
-        users.hasMany(models.history, {
-            onDelete: "cascade"
-        });
-    };
+
     users.associate = function (models) {
         users.hasMany(models.programs, {
             onDelete: "cascade"

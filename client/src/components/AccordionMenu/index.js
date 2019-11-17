@@ -4,9 +4,13 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List, ListItem } from "../List";
+import { Paper, Grid, Box } from "@material-ui/core";
+
+import { useAuth0 } from "../../react-auth0-spa";
+
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,7 +30,8 @@ export default function AccordionMenu(props) {
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-
+    // const { loading, user } = useAuth0();
+    // console.log(user)
     return (
         <div className={classes.root}>
             <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -43,7 +48,12 @@ export default function AccordionMenu(props) {
                             {props.workouts.map(workout => {
                                 return (
                                     <ListItem>
-                                        <a href="#">workout.title</a>
+                                        <Paper>
+                                            <a href="#">{workout.workoutName}</a>
+                                            <p>{workout.focus}   Difficulty: {workout.difficulty}</p>
+
+                                        </Paper>
+
                                     </ListItem>
                                 )
                             })}
@@ -62,10 +72,14 @@ export default function AccordionMenu(props) {
                 <ExpansionPanelDetails>
                     <Box component="div" style={{ width: "100%" }}>
                         <List>
-                            {props.programs.map(workout => {
+                            {props.programs.map(program => {
                                 return (
                                     <ListItem>
-                                        <a href="#">workout.title</a>
+                                        <Paper>
+                                            <a href="#">{program.programName}</a>
+                                            <p>{program.focus}  {program.category}</p>
+                                        </Paper>
+
                                     </ListItem>
                                 )
                             })}
@@ -84,10 +98,13 @@ export default function AccordionMenu(props) {
                 <ExpansionPanelDetails>
                     <Box component="div" style={{ width: "100%" }}>
                         <List>
-                            {props.challenges.map(workout => {
+                            {props.challenges.map(challenge => {
                                 return (
                                     <ListItem>
-                                        <a href="#">workout.title</a>
+                                        <Paper>
+                                            <a href="#">{challenge.programName}</a>
+                                            <p>{challenge.focus}  {challenge.category}</p>
+                                        </Paper>
                                     </ListItem>
                                 )
                             })}
@@ -109,7 +126,7 @@ export default function AccordionMenu(props) {
                             {props.recent.map(workout => {
                                 return (
                                     <ListItem>
-                                        <a href="#">workout.title</a>
+                                        <a href="#">workout.workoutName</a>
                                     </ListItem>
                                 )
                             })}

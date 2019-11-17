@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar";
 import AccordionMenu from "../components/AccordionMenu";
 import { Grid } from "@material-ui/core"
-
+import API from "../utils/API";
 
 class Log extends Component {
   state = {
-    workouts: [1, 2, 3, 4, 5, 6,],
+    workouts: [],
     programs: [],
     challenges: [],
     recent: [],
@@ -14,15 +13,53 @@ class Log extends Component {
   };
 
 
+  componentDidMount() {
+    this.getWorkouts();
+    this.getPrograms();
+    this.getChallenges();
+  }
+
+  getWorkouts = () => {
+    API.getStuff("workouts")
+      .then(res => {
+        this.setState({ workouts: res.data })
+
+      })
+      .catch(err => console.log(err));
+
+  };
+  getChallenges = () => {
+    API.getStuffWhere("programs","category", "challenge")
+    .then(res => {
+      this.setState({ challenges: res.data })
+    })
+    .catch(err => console.log(err));
+  };
+
+  getPrograms = () => {
+    API.getStuff("programs")
+      .then(res => {
+        this.setState({ programs: res.data })
+      })
+      .catch(err => console.log(err));
+
+  };
+  getUserData = () => {
+
+  };
+  makeSelection = () => {
+
+  };
+
   render() {
+    
     return (
       <div>
-        <Navbar></Navbar>
         <Grid container>
           <Grid
             item
-            xs='12'
-            sm='3'
+            xs={12}
+            sm={3}
             style={{ margin: "2rem" }}
           >
             <AccordionMenu
@@ -35,10 +72,13 @@ class Log extends Component {
 
             </AccordionMenu>
           </Grid>
+          <Grid item xs={12} sm={9}>
+            <code>{JSON.stringify(this.state.workouts, null, 2)}</code>
+          </Grid>
         </Grid>
       </div>
     )
-  }
+  };
 }
 
 export default Log;
