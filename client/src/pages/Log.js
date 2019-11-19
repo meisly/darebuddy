@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import AccordionMenu from "../components/AccordionMenu";
-import { Grid } from "@material-ui/core"
+import LogInfo from "../components/LogInfo";
+import { Paper, Grid } from "@material-ui/core";
 import API from "../utils/API";
+
 
 class Log extends Component {
   state = {
@@ -30,11 +32,11 @@ class Log extends Component {
 
   };
   getChallenges = () => {
-    API.getStuffWhere("programs","category", "challenge")
-    .then(res => {
-      this.setState({ challenges: res.data })
-    })
-    .catch(err => console.log(err));
+    API.getChallenges()
+      .then(res => {
+        this.setState({ challenges: res.data })
+      })
+      .catch(err => console.log(err));
   };
 
   getPrograms = () => {
@@ -45,15 +47,54 @@ class Log extends Component {
       .catch(err => console.log(err));
 
   };
-  getUserData = () => {
+  updateUserData = () => {
 
   };
-  makeSelection = () => {
+  getRecentWorkouts = () => {
+    API.getRecentWorkouts()
+    .then(res => {
+      this.setState({ recent: res.data })
+    })
+    .catch(err => console.log(err));
 
   };
+  selectProgramOrWorkout = (event) => {
+    const selected = event.target.getAttribute('data-id');
+    let query = selected.split("-");
+    let [model, id] = query;
+    if (model === "workout") {
+      API.findWorkout(id)
+        .then(res => {
+          this.setState({ currentlySelected: res.data })
+          console.log("You have selected")
+          console.log(this.state.currentlySelected)
+        })
+        .catch(err => console.log(err));
+    }else {
+      API.findProgram(id)
+      .then(res => {
+        this.setState({ currentlySelected: res.data })
+        console.log("You have selected")
+        console.log(this.state.currentlySelected.id)
+      })
+      .catch(err => console.log(err));
+    }
+
+  };
+  logWorkout = () => {
+    if (this.props.userData) {
+      API.logUserWorkout(this.props.userData, {'id': this.state.currentlySelected.id})
+        .then(res => {
+          console.log("You have logged a workout")
+          console.log(res)
+        })
+        .catch(err => console.log(err));
+    }
+
+  }
 
   render() {
-    
+
     return (
       <div>
         <Grid container>
@@ -69,12 +110,18 @@ class Log extends Component {
               programs={this.state.programs}
               challenges={this.state.challenges}
               recent={this.state.recent}
+              onClick={this.selectProgramOrWorkout}
             >
 
             </AccordionMenu>
           </Grid>
-          <Grid item xs={12} sm={9}>
-            <code>{JSON.stringify(this.state.workouts, null, 2)}</code>
+          <Grid item xs={12} sm={8}>
+            <LogInfo
+            currentlySelected={this.state.currentlySelected}
+            logWorkout={this.logWorkout}
+            >
+            </LogInfo>
+            
           </Grid>
         </Grid>
       </div>

@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 let instance = axios.create({
   baseURL: 'http://localhost:3000/api/dbdata',
-  timeout: 1000
+  timeout: 1500
 });
 
 
@@ -19,10 +19,30 @@ export default {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return instance.get("/" + query);
   },
+  findWorkout: function (query) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get("/workout/id/" + query);
+  },
+  findProgram: function (query) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get("/program/id/" + query);
+  },
   getStuffWhere: function(model, column, query) {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return instance.get(`/${model}/${column}/${query}`);
+  },
+  getChallenges: function() {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get(`/programs/challenges`);
+  },
+  getRecentWorkouts: function(user) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get(`/userworkouts/user/${user.id}/?:n=10`)
   },
   getUser: function(user) {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -42,7 +62,15 @@ export default {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return instance.get(`/userworkouts/user/${user.id}`)
+  },
+  logUserWorkout: function(user, workout) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.post(`/userworkouts/user/${user.id}`, {
+      id: workout.id
+    })
   }
+
   // // Gets the book with the given id
   // getPrograms: function(programs) {
   //   return axios.get("/api/dbdata/" + programs);

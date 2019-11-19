@@ -6,12 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List, ListItem } from "../List";
-import { Paper, Grid, Box } from "@material-ui/core";
-
-import API from "../../utils/API";
-import { useAuth0 } from "../../react-auth0-spa";
-
-
+import { Paper, Box } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,9 +26,7 @@ export default function AccordionMenu(props) {
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    // const { loading, user } = useAuth0();
-    // const userData = API.getUser(user.email);
-    
+
     return (
         <div className={classes.root}>
             <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -49,10 +42,12 @@ export default function AccordionMenu(props) {
                         <List>
                             {props.workouts.map(workout => {
                                 return (
-                                    <ListItem>
+                                    <ListItem
+                                        key={`workout-${workout.id}`}
+                                    >
                                         <Paper>
-                                            <a href="#">{workout.workoutName}</a>
-                                            <p>{workout.focus}   Difficulty: {workout.difficulty}</p>
+                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
+                                            <p style={{ textTransform: 'capitalize' }}>{workout.focus}   Difficulty: {workout.difficulty}</p>
 
                                         </Paper>
 
@@ -76,10 +71,12 @@ export default function AccordionMenu(props) {
                         <List>
                             {props.programs.map(program => {
                                 return (
-                                    <ListItem>
+                                    <ListItem
+                                        key={`program-${program.id}`}
+                                    >
                                         <Paper>
-                                            <a href="#">{program.programName}</a>
-                                            <p>{program.focus}  {program.category}</p>
+                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`program-${program.id}`}>{program.programName}</a>
+                                            <p style={{ textTransform: 'capitalize' }}>{program.focus}  {program.category}</p>
                                         </Paper>
 
                                     </ListItem>
@@ -102,10 +99,12 @@ export default function AccordionMenu(props) {
                         <List>
                             {props.challenges.map(challenge => {
                                 return (
-                                    <ListItem>
+                                    <ListItem
+                                        key={`program-${challenge.id}`}
+                                    >
                                         <Paper>
-                                            <a href="#">{challenge.programName}</a>
-                                            <p>{challenge.focus}  {challenge.category}</p>
+                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`program-${challenge.id}`}>{challenge.programName}</a>
+                                            <p style={{ textTransform: 'capitalize' }}>{challenge.focus}  {challenge.category}</p>
                                         </Paper>
                                     </ListItem>
                                 )
@@ -127,8 +126,10 @@ export default function AccordionMenu(props) {
                         <List>
                             {props.recent.map(workout => {
                                 return (
-                                    <ListItem>
-                                        <a href="#">workout.workoutName</a>
+                                    <ListItem
+                                        key={`workout-${workout.id}`}
+                                    >
+                                        <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
                                     </ListItem>
                                 )
                             })}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Landing from "./pages/Landing";
+// import Landing from "./pages/Landing";
 import NavBar from "./components/Navbar";
 import User from "./pages/User";
 import Log from "./pages/Log";
@@ -10,7 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 
-const ID_TOKEN_KEY = 'darebuddy-id-token';
+// const ID_TOKEN_KEY = 'darebuddy-id-token';
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 function App() {

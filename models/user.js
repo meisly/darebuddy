@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: "cascade"
         });
         users.belongsToMany(models.workouts, {
-            through: 'UserWorkouts',
+            through: {model: models.userworkouts, unique: false},
             onDelete: "cascade"
         });
         users.belongsToMany(models.users, { 

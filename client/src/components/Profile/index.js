@@ -39,7 +39,7 @@ const Profile = (props) => {
           >
             <div name="col1">
               <h4>Username: {user.name}</h4>
-              <h4>DareBuddy since: {props.userData.createdAt} </h4>
+              <h4>DareBuddy since: {(props.useData) ? (props.userData.createdAt) : ""} </h4>
               <h4>Current Programs:</h4>
               {(props.programs) ? (props.programs.map(program => (
               <p>{program.programName}</p> 

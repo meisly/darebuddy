@@ -1,6 +1,11 @@
 
 module.exports = (sequelize, DataTypes) => {
     const userworkouts = sequelize.define("userworkouts", {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
       workoutId: {
           type: DataTypes.INTEGER,
           references: {

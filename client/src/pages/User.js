@@ -3,6 +3,7 @@ import Profile from "../components/Profile"
 import { Paper, Grid } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
+
 import API from "../utils/API";
 
 
@@ -10,7 +11,8 @@ class Books extends Component {
 
   state = {
     workouts: null,
-    programs: null
+    programs: null,
+    userData: this.props.userData
   };
 
   getUserWorkouts = () => {
@@ -32,10 +34,16 @@ class Books extends Component {
         .catch(err => console.log(err));
     }
   };
+  updateUserData = () => {
+    if(this.props.userData !== this.state.userData){
+      this.setState({userData: this.props.userData})
+    }
+  }
 
   componentDidUpdate() {
     this.getUserWorkouts();
     this.getUserPrograms();
+    this.updateUserData();
   }
 
   render() {
@@ -68,7 +76,7 @@ class Books extends Component {
                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
                   <ListItem key={workout.id}>
                     <Paper style={{ padding: ".5rem", margin: "1rem" }}>
-                      {workout.workoutName}    {workout.UserWorkouts.createdAt}
+                      {workout.workoutName}    {workout.userworkouts.createdAt}
 
                     </Paper>
                   </ListItem>

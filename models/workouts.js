@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       workouts.belongsToMany(models.users, {
-          through: 'UserWorkouts',
+          through: {model: models.userworkouts, unique: false},
           onDelete: 'cascade'
       });
     };
