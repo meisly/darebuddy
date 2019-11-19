@@ -8,23 +8,29 @@ import { useAuth0 } from "./react-auth0-spa";
 import PrivateRoute from "./components/PrivateRoute";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import API from "./utils/API";
 
 const ID_TOKEN_KEY = 'darebuddy-id-token';
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 function App() {
-  const { loading, getTokenSilently } = useAuth0();
+  const { loading, getTokenSilently, isAuthenticated, user } = useAuth0();
 
   const [token, setToken] = useState();
-  if (!loading) {
+  const [userData, setUserData] = useState(null);
 
+  if (!loading) {
     if (!token) {
       getTokenSilently().then((token) => {
         setToken(token);
         localStorage.setItem(ACCESS_TOKEN_KEY, token)
       });
     }
-
+    if (isAuthenticated && !userData) {
+      API.getUser(user).then(res => {
+        setUserData(res.data);
+      })
+    }
   }
 
   if (loading) {
@@ -41,8 +47,12 @@ function App() {
 
         <Switch>
           <Route exact path="/" />
-          <PrivateRoute exact path="/user" component={User} />
-          <PrivateRoute exact path="/log" component={Log} />
+          <PrivateRoute exact path="/user"
+            render={() =>  <User userData={userData}/> }
+          />
+          <PrivateRoute exact path="/log" 
+          render={() => <Log userData={userData}/> }
+           />
           <Route path="*" component={NoMatch} />
         </Switch>
       </div>

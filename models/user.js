@@ -12,16 +12,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             len: [1, 75],
             allowNull: false,
+            unique: true,
             validate: {
                 notEmpty: true
             }
         },
         profileUrl: {
             type: DataTypes.TEXT,
-            allowNull: true,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: false,
+            default: ""
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -34,17 +33,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     users.associate = function (models) {
-        users.hasMany(models.programs, {
+        users.belongsToMany(models.programs, {
+            through: "UserPrograms",
             onDelete: "cascade"
         });
-    };
-    users.associate = function (models) {
-        users.hasMany(models.workouts, {
-            through: 'UsersWorkouts',
+        users.belongsToMany(models.workouts, {
+            through: 'UserWorkouts',
             onDelete: "cascade"
         });
-    };
-    users.associate = function (models) {
         users.belongsToMany(models.users, { 
             as: 'Friends',
             through: 'UserFriends'

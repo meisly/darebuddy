@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List, ListItem } from "../List";
 import { Paper, Grid, Box } from "@material-ui/core";
 
+import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
 
 
@@ -31,7 +32,8 @@ export default function AccordionMenu(props) {
         setExpanded(isExpanded ? panel : false);
     };
     // const { loading, user } = useAuth0();
-    // console.log(user)
+    // const userData = API.getUser(user.email);
+    
     return (
         <div className={classes.root}>
             <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>

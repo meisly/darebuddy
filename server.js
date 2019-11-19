@@ -45,9 +45,9 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-app.get('/authorized', function (req, res) {
-  res.send('Secured Resource');
-});
+// app.get('/authorized', function (req, res) {
+//   res.send('Secured Resource');
+// });
 //Connect to MySQL Database
 let syncOptions = { force: false };
 

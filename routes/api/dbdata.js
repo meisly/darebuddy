@@ -5,11 +5,17 @@ const controller = require("../../controllers/controller");
 router.route("/:model")
   .get(controller.findAll);
 
-router.route("/:model/:column/:query")
-    .get(controller.findAllWhere);
+// router.route("/:model/:column/:query")
+//     .get(controller.findAllWhere);
 
-router.route("/user/:email")
-    .get(controller.getUser);
+router.route("/userworkouts/user/:id")
+    .get(controller.getUserWorkouts);
+
+router.route("/userprograms/user/:id")
+    .get(controller.getUserPrograms);
+
+router.route("/user")
+    .post(controller.getUser);
 
 // // Matches with "/api/books/:id"
 // router

@@ -1,11 +1,12 @@
 // src/components/Profile.js
 
-import React, { Fragment } from "react";
+import React, { userState, Fragment } from "react";
 import { Paper, Grid } from "@material-ui/core";
 import { useAuth0 } from "../../react-auth0-spa";
 
-const Profile = () => {
+const Profile = (props) => {
   const { loading, user } = useAuth0();
+
 
   if (loading || !user) {
     return (
@@ -38,8 +39,11 @@ const Profile = () => {
           >
             <div name="col1">
               <h4>Username: {user.name}</h4>
-              <h4>DareBuddy since: {} </h4>
+              <h4>DareBuddy since: {props.userData.createdAt} </h4>
               <h4>Current Programs:</h4>
+              {(props.programs) ? (props.programs.map(program => (
+              <p>{program.programName}</p> 
+              ))) : "" }
             </div>
           </Grid>
           <Grid

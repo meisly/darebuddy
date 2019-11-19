@@ -58,6 +58,11 @@ module.exports = (sequelize, DataTypes) => {
       workouts.belongsTo(models.programs, {
         onDelete: "cascade"
       });
+
+      workouts.belongsToMany(models.users, {
+          through: 'UserWorkouts',
+          onDelete: 'cascade'
+      });
     };
     return workouts;
   };

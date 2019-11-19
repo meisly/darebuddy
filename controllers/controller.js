@@ -9,6 +9,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     findAllWhere: function (req, res) {
+        console.log(req.params)
         db[req.params.model]
             .findAll({
                 where: {
@@ -20,29 +21,45 @@ module.exports = {
     },
     getUser: function (req, res) {
         db.users
-            .findOne({
-                where: {
-                    email: req.params.email
-                }
+            .findOrCreate({ where: { email: req.body.email }, defaults: { userName: req.body.name, profileUrl: req.body.img } })
+            .spread((user, created) => {
+                res.json(user)
             })
-            .then(dbModel => {
-                if(!res){
-                    db.users.create
-                }
-                res.json(dbModel)})
             .catch(err => res.status(422).json(err));
+    },
+    getUserWorkouts: function (req, res) {
+        db.users
+            .findOne({
+                where: {'id': req.params.id},
+                include: [{
+                    model: db.workouts,
+                    through: {
+                        model: db.userworkouts
+                    }
+                }]
+            })
+            .then(dbResult => {
+                console.log(db.userworkouts.workoutId)
+                res.json(dbResult)
+            })
+            .catch(err => res.status(422).json(err));
+        
+    },
+    getUserPrograms: function (req, res) {
+        db.users
+            .findOne({
+                where: {'id': req.params.id},
+                include: [{
+                    model: db.programs,
+                    through: {
+                        model: db.userprograms
+                    }
+                }]
+            })
+            .then(dbResult => {
+                res.json(dbResult)
+            })
+            .catch(err => res.status(422).json(err));
+        
     }
-    //   findByZip: function (req, res) {
-    //     db.harris211
-    //       .findAll({where: {
-    //         zip_code: req.body.zip
-    //       }})
-    //       .then(data => console.log(data))
-    //   },
-    //   // findByCol: function(req, res) {
-    //   //   db.harris211
-    //   //     .findAll({where: })
-    //   //     .then(dbModel => res.json(dbModel))
-    //   //     .catch(err => res.status(422).json(err));
-    //   // },
 };

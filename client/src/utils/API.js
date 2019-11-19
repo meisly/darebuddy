@@ -24,10 +24,24 @@ export default {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return instance.get(`/${model}/${column}/${query}`);
   },
-  getUser: function(userEmail) {
+  getUser: function(user) {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return instance.get(`/user/${userEmail}`);
+    return instance.post(`/user`, {
+      email: user.email,
+      name: user.name,
+      img: user.picture
+    } );
+  },
+  getUserPrograms: function(user) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get(`/userprograms/user/${user.id}`);
+  },
+  getUserWorkouts: function(user) {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return instance.get(`/userworkouts/user/${user.id}`)
   }
   // // Gets the book with the given id
   // getPrograms: function(programs) {

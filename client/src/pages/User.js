@@ -3,20 +3,49 @@ import Profile from "../components/Profile"
 import { Paper, Grid } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
+import API from "../utils/API";
 
 
 class Books extends Component {
 
-
   state = {
-    books: [1, 2, 3, 5, 6]
+    workouts: null,
+    programs: null
   };
 
+  getUserWorkouts = () => {
+    if (this.props.userData && !this.state.workouts) {
+      API.getUserWorkouts(this.props.userData)
+        .then(res => {
+          this.setState({ workouts: res.data.workouts })
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  getUserPrograms = () => {
+    if (this.props.userData && !this.state.programs) {
+      API.getUserPrograms(this.props.userData)
+        .then(res => {
+          this.setState({ programs: res.data.programs})
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  componentDidUpdate() {
+    this.getUserWorkouts();
+    this.getUserPrograms();
+  }
+
   render() {
-    
+    console.log(JSON.stringify(this.props.userData, null, 2))
     return (
       <div>
-        <Profile></Profile>
+        <Profile
+        programs={this.state.programs}
+        userData={this.props.userData}
+        ></Profile>
         <Grid
           container
           spacing={3}
@@ -36,13 +65,14 @@ class Books extends Component {
           >
             <Paper component="div">
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book}>
+                {(this.state.workouts) ? (this.state.workouts.map(workout => (
+                  <ListItem key={workout.id}>
                     <Paper style={{ padding: ".5rem", margin: "1rem" }}>
-                      Stuff
+                      {workout.workoutName}    {workout.UserWorkouts.createdAt}
+
                     </Paper>
                   </ListItem>
-                ))}
+                ))) : ""}
               </List>
             </Paper>
           </Grid>

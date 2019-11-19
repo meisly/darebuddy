@@ -5,6 +5,7 @@ import API from "../utils/API";
 
 class Log extends Component {
   state = {
+    userData: this.props.userData,
     workouts: [],
     programs: [],
     challenges: [],
