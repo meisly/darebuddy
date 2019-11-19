@@ -13,8 +13,8 @@ const db = require("./models");
 const PORT = process.env.PORT || 3001;
 
 const authConfig = {
-  domain: "dev-o2xwghwo.auth0.com",
-  audience: "/dbdata"
+  domain: "broad-truth-4721.auth0.com",
+  audience: "/"
 };
 // Define middleware here
 
