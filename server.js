@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 
 const authConfig = {
   domain: "broad-truth-4721.auth0.com",
-  audience: "/"
+  audience: "dbdata"
 };
 // Define middleware here
 

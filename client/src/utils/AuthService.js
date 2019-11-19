@@ -5,7 +5,7 @@ const CLIENT_ID = '05rYV48CPNz314uODkXXwCHd2UD4kypJ';
 const CLIENT_DOMAIN = 'broad-truth-4721.auth0.com';
 const REDIRECT = 'https://damp-earth-37383.herokuapp.com/callback';
 const SCOPE = 'dbdata';
-const AUDIENCE = '/dbdata';
+const AUDIENCE = 'dbdata';
 
 const auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
