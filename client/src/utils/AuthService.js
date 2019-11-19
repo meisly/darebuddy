@@ -1,9 +1,9 @@
 import decode from 'jwt-decode';
 import auth0 from 'auth0-js';
 
-const CLIENT_ID = '7f8qFsFdF7nF2B96aA0PYLzABFFjRc7X';
-const CLIENT_DOMAIN = 'dev-o2xwghwo.auth0.com';
-const REDIRECT = 'http://localhost:3000/callback';
+const CLIENT_ID = '05rYV48CPNz314uODkXXwCHd2UD4kypJ';
+const CLIENT_DOMAIN = 'broad-truth-4721.auth0.com';
+const REDIRECT = 'https://damp-earth-37383.herokuapp.com/callback';
 const SCOPE = 'dbdata';
 const AUDIENCE = '/dbdata';
 
