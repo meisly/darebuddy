@@ -8,78 +8,61 @@ let instance = axios.create({
   timeout: 1500
 });
 
+const getHeader = () => {
+  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
 
 
 export default {
   // Gets all books
   getStuff: function (query) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // getHeader();
     return instance.get("/" + query);
   },
   findWorkout: function (query) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // getHeader();
     return instance.get("/workout/id/" + query);
   },
   findProgram: function (query) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  // getHeader();
     return instance.get("/program/id/" + query);
   },
-  getStuffWhere: function(model, column, query) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getStuffWhere: function (model, column, query) {
+    // getHeader();
     return instance.get(`/${model}/${column}/${query}`);
   },
-  getChallenges: function() {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getChallenges: function () {
+   // getHeader();
     return instance.get(`/programs/challenges`);
   },
-  getRecentWorkouts: function(user) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getRecentWorkouts: function (user) {
+    // getHeader();
     return instance.get(`/userworkouts/user/${user.id}/?:n=10`)
   },
-  getUser: function(user) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getUser: function (user) {
+    // getHeader();
     return instance.post(`/user`, {
       email: user.email,
       name: user.name,
       img: user.picture
-    } );
+    });
   },
-  getUserPrograms: function(user) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getUserPrograms: function (user) {
+  // getHeader();
     return instance.get(`/userprograms/user/${user.id}`);
   },
-  getUserWorkouts: function(user) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  getUserWorkouts: function (user) {
+    // getHeader();
     return instance.get(`/userworkouts/user/${user.id}`)
   },
-  logUserWorkout: function(user, workout) {
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  logUserWorkout: function (user, workout) {
+    // getHeader();
     return instance.post(`/userworkouts/user/${user.id}`, {
       id: workout.id
     })
   }
 
-  // // Gets the book with the given id
-  // getPrograms: function(programs) {
-  //   return axios.get("/api/dbdata/" + programs);
-  // },
-  // // // Deletes the book with the given id
-  // deleteBook: function(id) {
-  //   return axios.delete("/api/books/" + id);
-  // },
-  // // Saves a book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post("/api/books", bookData);
-  // }
+
 };
