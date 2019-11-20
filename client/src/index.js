@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./react-auth0-spa";
-import config from "../../config/auth_config";
+import config from "../../config/auth_config.js";
 
 let confige = config.production;
 
