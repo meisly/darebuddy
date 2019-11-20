@@ -4,10 +4,6 @@ const routes = require("./routes");
 const app = express();
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
-
-
-// const session = require("express-session");
-
 const db = require("./models");
 
 const PORT = process.env.PORT || 3001;
@@ -32,7 +28,7 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use(jwtCheck);
+// app.use(jwtCheck);
 
 
 
