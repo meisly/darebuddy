@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config"
 
-let confige = config.production;
+let confige = config.development;
 
 // A function that routes the user to the right place
 // after login
