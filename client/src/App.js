@@ -10,7 +10,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 
-// const ID_TOKEN_KEY = 'darebuddy-id-token';
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 function App() {
