@@ -3,6 +3,7 @@ import Profile from "../components/Profile"
 import { Paper, Grid } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
+import moment from "moment";
 
 import API from "../utils/API";
 
@@ -45,7 +46,9 @@ class Books extends Component {
     this.getUserPrograms();
     this.updateUserData();
   }
-
+  convertDate = (date) =>{
+    return moment(date).format('MMMM Do YYYY')
+  }
   render() {
     console.log(JSON.stringify(this.props.userData, null, 2))
     return (
@@ -76,7 +79,7 @@ class Books extends Component {
                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
                   <ListItem key={workout.id}>
                     <Paper style={{ padding: ".5rem", margin: "1rem" }}>
-                      {workout.workoutName}    {workout.userworkouts.createdAt}
+                      {workout.workoutName}    {this.convertDate(workout.userworkouts.createdAt)}
 
                     </Paper>
                   </ListItem>

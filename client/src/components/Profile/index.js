@@ -1,8 +1,11 @@
 // src/components/Profile.js
 
-import React, { userState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Paper, Grid } from "@material-ui/core";
 import { useAuth0 } from "../../react-auth0-spa";
+import { Line } from 'rc-progress';
+import moment from "moment";
+
 
 const Profile = (props) => {
   const { loading, user } = useAuth0();
@@ -19,7 +22,7 @@ const Profile = (props) => {
       <Paper
         component="div"
         elevation={1}
-        style={{ margin: "3rem" }}
+        style={{ margin: "3rem", paddingLeft: '1rem', paddingRight: '1rem' }}
       >
         <Grid container spacing={3}>
           <Grid
@@ -38,11 +41,12 @@ const Profile = (props) => {
             sm={5}
           >
             <div name="col1">
-              <h4>Username: {user.name}</h4>
-              <h4>DareBuddy since: {(props.useData) ? (props.userData.createdAt) : ""} </h4>
+              <h4>Hi, {user.name} </h4>
+              <h5>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </h5>
               <h4>Current Programs:</h4>
               {(props.programs) ? (props.programs.map(program => (
-              <p>{program.programName}</p> 
+              <h6>{program.programName}</h6> 
+                <Line percent={program.current/program.length} strokeWidth="4" strokeColor="#D3D3D3" ></Line>
               ))) : "" }
             </div>
           </Grid>

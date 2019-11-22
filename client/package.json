@@ -10,6 +10,8 @@
     "auth0-js": "^9.11.3",
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.24.0",
+    "rc-progress": "^2.5.2",
     "react": "^16.6.3",
     "react-calendar": "^2.19.2",
     "react-collapsible": "^2.6.0",

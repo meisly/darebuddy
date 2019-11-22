@@ -15,6 +15,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
+        backgroundColor: 'black',
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -41,10 +42,10 @@ const NavBar = () => {
     return (
         <div className={classes.root}>
 
-            <AppBar position="static">
+            <AppBar position="static" style={{backgroundColor: 'black'}}>
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        DareBuddy
+                    <Typography style={{fontWeight: 900, fontSize: '2.5rem'}} variant="h5" className={classes.title}> 
+                        <a href="/" style={{textDecoration: 'none', color: 'white'}}>DareBuddy</a>
                     </Typography>
                     {!isAuthenticated && (
                         <button
