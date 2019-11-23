@@ -42,9 +42,10 @@ class Books extends Component {
   }
 
   componentDidUpdate() {
+    this.updateUserData();
     this.getUserWorkouts();
     this.getUserPrograms();
-    this.updateUserData();
+    
   }
   convertDate = (date) =>{
     return moment(date).format('MMMM Do YYYY')
@@ -77,8 +78,9 @@ class Books extends Component {
             <Paper component="div">
               <List>
                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
-                  <ListItem key={workout.id}>
-                    <Paper style={{ padding: ".5rem", margin: "1rem" }}>
+                  <ListItem key={workout.userworkouts.id} >
+                    <Paper style={{ padding: ".5rem", margin: "1rem" , display: 'flex', justifyContent: 'left'}}>
+                      <img style={{maxWidth: '15%'}} src={workout.imageUrl} alt={`${workout.workoutName} Poster Mini`}></img>
                       {workout.workoutName}    {this.convertDate(workout.userworkouts.createdAt)}
 
                     </Paper>
