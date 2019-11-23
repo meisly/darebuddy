@@ -2,15 +2,15 @@ import axios from "axios";
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 let url = '';
 
-if (window.location.origin === 'https://damp-earth-37383.herokuapp.com/') {
+if (window.location.origin === 'https://damp-earth-37383.herokuapp.com') {
   url= 'https://damp-earth-37383.herokuapp.com/';
 } else {
-  url = 'http://localhost:3000/'
+  url = 'http://localhost:3000'
 }
 let instance = null;
 if(url !== ''){
   instance = axios.create({
-    baseURL: `${url}api/dbdata`,
+    baseURL: `${url}/api/dbdata`,
     timeout: 1500
   });
 }
