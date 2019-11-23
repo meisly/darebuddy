@@ -1,17 +1,21 @@
 import axios from "axios";
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
-let url = 'http://localhost:3000/';
+let url = '';
 
 if (window.location.host === 'https://damp-earth-37383.herokuapp.com/') {
   url= 'https://damp-earth-37383.herokuapp.com/';
-} 
+} else {
+  url = 'http://localhost:3000/'
+}
+let instance = null;
+if(url !== ''){
+  instance = axios.create({
+    baseURL: `${url}api/dbdata`,
+    timeout: 1500
+  });
+}
 
 
-
-let instance = axios.create({
-  baseURL: `${url}api/dbdata`,
-  timeout: 1500
-});
 
 const getHeader = () => {
   const token = localStorage.getItem(ACCESS_TOKEN_KEY);
