@@ -5,7 +5,7 @@ const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 
 let instance = axios.create({
-  baseURL: 'http://localhost:3000/api/dbdata',
+  baseURL: 'https://damp-earth-37383.herokuapp.com//api/dbdata',
   timeout: 1500
 });
 
