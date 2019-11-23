@@ -45,9 +45,11 @@ const Profile = (props) => {
               <h5>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </h5>
               <h4>Current Programs:</h4>
               {(props.programs) ? (props.programs.map(program => (
-              <h6>{program.programName}</h6> 
-                <Line percent={program.current/program.length} strokeWidth="4" strokeColor="#D3D3D3" ></Line>
-              ))) : "" }
+                <>
+                  <h6>{program.programName}</h6>
+                  <Line percent={10} strokeWidth="4" strokeColor="#D3D3D3" ></Line>
+                </>
+              ))) : ""}
             </div>
           </Grid>
           <Grid

@@ -7,13 +7,14 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List, ListItem } from "../List";
 import { Paper, Box } from "@material-ui/core";
+require("./style.css");
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
     },
     heading: {
-        fontSize: theme.typography.pxToRem(15),
+        fontSize: theme.typography.pxToRem(20),
         flexBasis: '100%',
         flexShrink: 0,
     },
@@ -46,8 +47,9 @@ export default function AccordionMenu(props) {
                                         key={`workout-${workout.id}`}
                                     >
                                         <Paper>
-                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
-                                            <p style={{ textTransform: 'capitalize' }}>{workout.focus}   Difficulty: {workout.difficulty}</p>
+                                            <a style={{ textTransform: 'capitalize', textDecoration: 'none' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
+                                            <p style={{ textTransform: 'capitalize' }}>{workout.focus}</p>
+                                            <p>Difficulty: {workout.difficulty}/5</p>
 
                                         </Paper>
 
@@ -75,7 +77,7 @@ export default function AccordionMenu(props) {
                                         key={`program-${program.id}`}
                                     >
                                         <Paper>
-                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`program-${program.id}`}>{program.programName}</a>
+                                            <Typography component='a' style={{ textTransform: 'capitalize', textDecoration: 'none' }} href="#" onClick={props.onClick} data-id={`program-${program.id}`}>{program.programName}</Typography>
                                             <p style={{ textTransform: 'capitalize' }}>{program.focus}  {program.category}</p>
                                         </Paper>
 
@@ -103,7 +105,7 @@ export default function AccordionMenu(props) {
                                         key={`program-${challenge.id}`}
                                     >
                                         <Paper>
-                                            <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`program-${challenge.id}`}>{challenge.programName}</a>
+                                            <a style={{ textTransform: 'capitalize', textDecoration: 'none'  }} href="#" onClick={props.onClick} data-id={`program-${challenge.id}`}>{challenge.programName}</a>
                                             <p style={{ textTransform: 'capitalize' }}>{challenge.focus}  {challenge.category}</p>
                                         </Paper>
                                     </ListItem>
@@ -129,7 +131,7 @@ export default function AccordionMenu(props) {
                                     <ListItem
                                         key={`workout-${workout.id}`}
                                     >
-                                        <a style={{ textTransform: 'capitalize' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
+                                        <a style={{ textTransform: 'capitalize', textDecoration: 'none'  }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
                                     </ListItem>
                                 )
                             })}
