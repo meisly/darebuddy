@@ -2,7 +2,7 @@ import axios from "axios";
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 let url = '';
 
-if (window.location.host === 'https://damp-earth-37383.herokuapp.com/') {
+if (window.location.origin === 'https://damp-earth-37383.herokuapp.com/') {
   url= 'https://damp-earth-37383.herokuapp.com/';
 } else {
   url = 'http://localhost:3000/'
