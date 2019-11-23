@@ -3,9 +3,14 @@ import auth0 from 'auth0-js';
 
 const CLIENT_ID = '05rYV48CPNz314uODkXXwCHd2UD4kypJ';
 const CLIENT_DOMAIN = 'broad-truth-4721.auth0.com';
-const REDIRECT = 'https://damp-earth-37383.herokuapp.com/';
+
 const SCOPE = 'dbdata';
 const AUDIENCE = '/dbdata';
+let REDIRECT = 'https://damp-earth-37383.herokuapp.com/';
+
+if (window.location.host === 'http://localhost:3000/') {
+  REDIRECT = 'http://localhost:3000/';
+} 
 
 const auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -32,7 +37,7 @@ export function getIdToken() {
 }
 
 export function getAccessToken() {
-  return ;
+  return;
 }
 
 function clearIdToken() {
