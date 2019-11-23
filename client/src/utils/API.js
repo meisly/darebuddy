@@ -9,7 +9,7 @@ if (window.location.host === 'https://damp-earth-37383.herokuapp.com/') {
 
 
 let instance = axios.create({
-  baseURL: `${url}/api/dbdata1,
+  baseURL: `${url}api/dbdata`,
   timeout: 1500
 });
 
