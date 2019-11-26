@@ -68,9 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     programs.associate = function(models) {
         programs.hasMany(models.workouts, {});
-        programs.belongsToMany(models.users, {
-          through: 'UserPrograms'
-        });
+        
     };
     return programs;
   };
