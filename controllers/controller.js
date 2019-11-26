@@ -104,20 +104,31 @@ module.exports = {
 
     },
     getUserPrograms: function (req, res) {
-        db.users
-            .findOne({
-                where: { 'id': req.params.id },
-                include: [{
-                    model: db.programs,
-                    through: {
-                        model: db.userprograms
-                    }
-                }]
+        db.sequelize.query(`SELECT * FROM userprograms up INNER JOIN programs p ON up.programId = p.id WHERE up.userId = ${req.params.id};`,
+            { replacements: [req.params.id], type: db.sequelize.QueryTypes.SELECT, plain: false, raw: true })
+            // db.userprograms
+            //     .findAll({
+            //         where: { 'userId': req.params.id },
+            //     })
+            .then((data) => {
+                res.json(data)
             })
+            .catch(err => res.status(422).json(err));
+
+    },
+    addUserProgram: function (req, res) {
+        console.log(req.body)
+        console.log(req.params.id)
+        db.userprograms.create({
+            'userId': req.params.id,
+            'programId': req.body.data.id,
+            'programLength': req.body.data.length,
+            'lastCompleted': 0,
+            
+        })
             .then(dbResult => {
                 res.json(dbResult)
             })
             .catch(err => res.status(422).json(err));
-
     }
 };

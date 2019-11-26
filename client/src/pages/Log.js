@@ -75,7 +75,7 @@ class Log extends Component {
       .then(res => {
         this.setState({ currentlySelected: res.data })
         console.log("You have selected")
-        console.log(this.state.currentlySelected.id)
+        console.log(this.state.currentlySelected)
       })
       .catch(err => console.log(err));
     }
@@ -90,9 +90,17 @@ class Log extends Component {
         })
         .catch(err => console.log(err));
     }
-
   }
-
+  addProgram = () =>{
+    if (this.props.userData) {
+      API.addUserProgram(this.props.userData, {"program": this.state.currentlySelected})
+        .then(res => {
+          console.log("You have added a new program")
+          console.log(res)
+        })
+        .catch(err => console.log(err));
+    }
+  }
   render() {
 
     return (
@@ -119,6 +127,7 @@ class Log extends Component {
             <LogInfo
             currentlySelected={this.state.currentlySelected}
             logWorkout={this.logWorkout}
+            addProgram={this.addProgram}
             >
             </LogInfo>
             

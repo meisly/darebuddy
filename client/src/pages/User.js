@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Profile from "../components/Profile"
-import { Paper, Grid } from "@material-ui/core";
+import { Paper, Grid, Typography } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
 import moment from "moment";
@@ -30,14 +30,15 @@ class Books extends Component {
     if (this.props.userData && !this.state.programs) {
       API.getUserPrograms(this.props.userData)
         .then(res => {
-          this.setState({ programs: res.data.programs})
+          console.log(res)
+          this.setState({ programs: res.data })
         })
         .catch(err => console.log(err));
     }
   };
   updateUserData = () => {
-    if(this.props.userData !== this.state.userData){
-      this.setState({userData: this.props.userData})
+    if (this.props.userData !== this.state.userData) {
+      this.setState({ userData: this.props.userData })
     }
   }
 
@@ -45,9 +46,9 @@ class Books extends Component {
     this.updateUserData();
     this.getUserWorkouts();
     this.getUserPrograms();
-    
+
   }
-  convertDate = (date) =>{
+  convertDate = (date) => {
     return moment(date).format('MMMM Do YYYY')
   }
   render() {
@@ -55,8 +56,8 @@ class Books extends Component {
     return (
       <div>
         <Profile
-        programs={this.state.programs}
-        userData={this.props.userData}
+          programs={this.state.programs}
+          userData={this.props.userData}
         ></Profile>
         <Grid
           container
@@ -79,9 +80,44 @@ class Books extends Component {
               <List>
                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
                   <ListItem key={workout.userworkouts.id} >
-                    <Paper style={{ padding: ".5rem", margin: "1rem" , display: 'flex', justifyContent: 'left'}}>
-                      <img style={{maxWidth: '15%'}} src={workout.imageUrl} alt={`${workout.workoutName} Poster Mini`}></img>
-                      {workout.workoutName}    {this.convertDate(workout.userworkouts.createdAt)}
+                    <Paper style={{ padding: ".5rem", margin: "1rem", display: 'flex', justifyContent: 'left', overflow: 'hidden' }}>
+                      <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                          <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
+                            {workout.workoutName}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                          <img style={{ maxWidth: '100%' }} src={workout.imageUrl} alt={`${workout.workoutName} Poster Mini`} />
+                        </Grid>
+
+                        <Grid item xs={9} container direction='column' alignItems='stretch'>
+                          <Grid item xs={1}></Grid>
+                          <Grid item xs={9}>
+                            <Typography component='h5' style={{ textAlign: 'left' }}>
+                              <strong>Notes:</strong>
+                            </Typography>
+                            <Typography component='p'>
+
+                            </Typography>
+                          </Grid>
+                          <Grid item xs container>
+                            <Grid item xs={9}>
+                              <Typography component='p' style={{ float: 'left' }}>
+                                <strong>Completed on </strong>{this.convertDate(workout.userworkouts.createdAt)}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                              <Typography component='p' style={{ float: 'left' }}>
+                                <a>Comments</a>
+                              </Typography>
+                            </Grid>
+                          </Grid>
+
+                        </Grid>
+
+                      </Grid>
+
 
                     </Paper>
                   </ListItem>

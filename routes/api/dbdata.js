@@ -23,6 +23,8 @@ router.route("/userworkouts/user/:id/recent")
 
 router.route("/userprograms/user/:id")
   .get(controller.getUserPrograms);
+router.route("/userprograms/user/:id")
+  .post(controller.addUserProgram);
 
 router.route("/user")
   .post(controller.getUser);

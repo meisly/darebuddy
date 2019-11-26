@@ -1,7 +1,7 @@
 // src/components/Profile.js
 
 import React, { Fragment } from "react";
-import { Paper, Grid } from "@material-ui/core";
+import { Paper, Grid, Typography } from "@material-ui/core";
 import { useAuth0 } from "../../react-auth0-spa";
 import { Line } from 'rc-progress';
 import moment from "moment";
@@ -39,20 +39,51 @@ const Profile = (props) => {
             item
             xs={6}
             sm={5}
+            container
           >
+            <Grid item xs={12}>
+              <Typography component='h4'>Hi, {user.name} </Typography>
+              <Typography component='h4'>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </Typography>
+            </Grid>
+            <Grid item xs={12}>
+
+              {(props.programs) ? (
+                <Paper
+                  component="div"
+                  elevation={2}
+                  style={{ padding: "1.5rem" }}>
+                  <Typography variant='h4' component='h4'>Current programs:</Typography>
+                  {props.programs.map(program => (
+                    <Grid container spacing={1}>
+                      <Grid item xs={12} container style={{paddingBottom: '0'}}>
+                        <Grid item xs style={{paddingBottom: '0'}}>
+                          <Typography component='span' >{program.programName}</Typography>
+                        </Grid>
+                        <Grid item xs={8} style={{paddingTop: '0'}}>
+                          <Line style={{ width: '90%' }} percent={program.progress} strokeWidth="5" trailWidth="5" strokeColor="#3AFE2D" trailColor="#FE1212"></Line>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs style={{paddingTop: '0'}}>
+                      <Typography component='a' style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}>
+                          Next workout
+                        </Typography>
+                        <Typography component='p' style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}>
+                          {program.lastCompleted} of {program.length} completed 
+                        </Typography>
+
+                      </Grid>
+                    </Grid>
+                  ))}
+                </Paper>
+              ) : ""}
+            </Grid>
             <div name="col1">
-              <h4>Hi, {user.name} </h4>
-              <h5>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </h5>
-              <h4>Current Programs:</h4>
-              {(props.programs) ? (props.programs.map(program => (
-                <>
-                  <h6>{program.programName}</h6>
-                  <Line percent={10} strokeWidth="4" strokeColor="#D3D3D3" ></Line>
-                </>
-              ))) : ""}
+
+
+
             </div>
           </Grid>
-          <Grid
+          {/* <Grid
             item
             xs={6}
             sm={4}
@@ -62,18 +93,17 @@ const Profile = (props) => {
               elevation={2}
               style={{ padding: ".5rem" }}
             >
-              <Grid container>
-                <Grid item component="h4" xs="12" style={{ textAlign: "center" }}>Badges:</Grid>
+              {/* <Grid container>
+                <Grid item component="h4" xs="12" style={{ textAlign: "center" }}>Completed Programs:</Grid>
                 <Grid item xs="6">
                   <h5 style={{ textAlign: "center" }}>Completed:</h5>
                 </Grid>
                 <Grid item xs="6">
                   <h5 style={{ textAlign: "center" }}>In Progress:</h5>
                 </Grid>
-              </Grid>
-
+              </Grid> 
             </Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Paper>
     </Fragment>

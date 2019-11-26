@@ -62,6 +62,12 @@ export default {
   // getHeader();
     return instance.get(`/userprograms/user/${user.id}`);
   },
+  addUserProgram: function (user, program) {
+    //getHeader();
+    return instance.post(`/userprograms/user/${user.id}`, {
+     data: program.program
+    })
+  },
   getUserWorkouts: function (user) {
     // getHeader();
     return instance.get(`/userworkouts/user/${user.id}`)
