@@ -20,7 +20,7 @@ class Books extends Component {
     if (this.props.userData && !this.state.workouts) {
       API.getUserWorkouts(this.props.userData)
         .then(res => {
-          if (res && res.length > 0) {
+          if (res.data.length > 0) {
             this.setState({ workouts: res.data })
           }
 
