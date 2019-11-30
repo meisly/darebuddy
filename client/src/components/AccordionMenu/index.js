@@ -45,11 +45,30 @@ export default function AccordionMenu(props) {
                                 return (
                                     <ListItem
                                         key={`workout-${workout.id}`}
+                                        onClick={props.onClick}
+                                        dataId={`workout-${workout.id}`}
                                     >
-                                        <Paper>
-                                            <a style={{ textTransform: 'capitalize', textDecoration: 'none' }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
-                                            <p style={{ textTransform: 'capitalize' }}>{workout.focus}</p>
-                                            <p>Difficulty: {workout.difficulty}/5</p>
+                                        <Paper
+                                        elevation={2}>
+                                            <Typography
+                                                component="h6"
+                                                variant="h6"
+                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+
+                                            >
+                                                {workout.workoutName}
+                                            </Typography>
+                                            <Typography
+                                                compnent="p"
+                                                style={{ textTransform: 'capitalize' }}
+                                            >
+                                                {workout.focus}
+                                            </Typography>
+                                            <Typography
+                                                component="p"
+                                            >
+                                                Difficulty: {workout.difficulty}/5
+                                            </Typography>
 
                                         </Paper>
 
@@ -75,10 +94,23 @@ export default function AccordionMenu(props) {
                                 return (
                                     <ListItem
                                         key={`program-${program.id}`}
+                                        onClick={props.onClick}
+                                        dataId={`program-${program.id}`}
+
                                     >
                                         <Paper>
-                                            <Typography component='a' style={{ textTransform: 'capitalize', textDecoration: 'none' }} href="#" onClick={props.onClick} data-id={`program-${program.id}`}>{program.programName}</Typography>
-                                            <p style={{ textTransform: 'capitalize' }}>{program.focus}  {program.category}</p>
+                                            <Typography
+                                                component='h5'
+                                                variant="h5"
+                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+                                            >
+                                                {program.programName}
+                                            </Typography>
+                                            <p
+                                                style={{ textTransform: 'capitalize' }}
+                                            >
+                                                {program.focus}  {program.category}
+                                            </p>
                                         </Paper>
 
                                     </ListItem>
@@ -103,10 +135,24 @@ export default function AccordionMenu(props) {
                                 return (
                                     <ListItem
                                         key={`program-${challenge.id}`}
+                                        onClick={props.onClick}
+                                        dataId={`program-${challenge.id}`}
                                     >
                                         <Paper>
-                                            <a style={{ textTransform: 'capitalize', textDecoration: 'none'  }} href="#" onClick={props.onClick} data-id={`program-${challenge.id}`}>{challenge.programName}</a>
-                                            <p style={{ textTransform: 'capitalize' }}>{challenge.focus}  {challenge.category}</p>
+                                            <Typography
+                                                component="h5"
+                                                variant="h5"
+                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+
+                                            >
+                                                {challenge.programName}
+                                            </Typography>
+                                            <Typography
+                                                component="p"
+                                                style={{ textTransform: 'capitalize' }}
+                                            >
+                                                {challenge.focus}  {challenge.category}
+                                            </Typography>
                                         </Paper>
                                     </ListItem>
                                 )
@@ -130,8 +176,17 @@ export default function AccordionMenu(props) {
                                 return (
                                     <ListItem
                                         key={`workout-${workout.id}`}
+                                        onClick={props.onClick}
+                                        dataId={`workout-${workout.id}`}
                                     >
-                                        <a style={{ textTransform: 'capitalize', textDecoration: 'none'  }} href="#" onClick={props.onClick} data-id={`workout-${workout.id}`}>{workout.workoutName}</a>
+                                        <Typography
+                                            component="h4"
+                                            variant="h4"
+                                            style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+
+                                        >
+                                            {workout.workoutName}
+                                        </Typography>
                                     </ListItem>
                                 )
                             })}

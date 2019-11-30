@@ -47,14 +47,17 @@ function App() {
 
         <Switch>
           <Route exact path="/"
-            render={() => <Landing userData={userData}/>} />
+            render={() => <Landing userData={userData} isAuthenticated={isAuthenticated}/>} 
+          />
           <PrivateRoute exact path="/user"
             render={() =>  <User userData={userData}/> }
           />
           <PrivateRoute exact path="/log" 
-          render={() => <Log userData={userData}/> }
+            render={() => <Log userData={userData}/> }
            />
-          <Route path="*" component={NoMatch} />
+          <Route path="*" 
+            component={NoMatch} 
+          />
         </Switch>
       </div>
     </Router>

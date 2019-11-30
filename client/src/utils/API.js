@@ -75,7 +75,9 @@ export default {
   logUserWorkout: function (user, workout) {
     // getHeader();
     return instance.post(`/userworkouts/user/${user.id}`, {
-      id: workout.id
+      data: workout.data,
+      date: workout.date,
+      notes: workout.notes
     })
   }
 

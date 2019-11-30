@@ -60,7 +60,7 @@ const Profile = (props) => {
                           <Typography component='span' >{program.programName}</Typography>
                         </Grid>
                         <Grid item xs={8} style={{paddingTop: '0'}}>
-                          <Line style={{ width: '90%' }} percent={program.progress} strokeWidth="5" trailWidth="5" strokeColor="#3AFE2D" trailColor="#FE1212"></Line>
+                          <Line style={{ width: '90%' }} percent={100*(program.lastCompleted/program.length)} strokeWidth="5" trailWidth="5" strokeColor="#3AFE2D" trailColor="#FE1212"></Line>
                         </Grid>
                       </Grid>
                       <Grid item xs style={{paddingTop: '0'}}>

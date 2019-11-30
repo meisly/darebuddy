@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import API from "../utils/API";
+// import API from "../utils/API";
 
 
 class Landing extends Component {
   state = {
-    workout: null
+    workout: null,
+    userData: this.props.userData
   };
 
   componentDidMount() {
-
   }
   getDailyWorkout = () => {
 
   }
 
   render() {
+    console.log(this.props.isAuthenticated);
+
     return (
       <Grid container>
         <Grid item xs={12} sm={4} style={{ padding: '1rem', marginTop: '1rem'}}>

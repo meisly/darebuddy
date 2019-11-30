@@ -1,14 +1,15 @@
 import React from "react";
 import { Paper, Grid } from "@material-ui/core";
 import ContainedButton from "../ContainedButtons";
+import LogForm from "../LogForm";
 
 const LogInfo = (props) => {
 
     return (
-        <Paper style={{ margin: '2rem' }}>
-            <Grid container>
+        <Paper style={{ margin: '2rem', padding: '1rem' }}>
+            <Grid container spacing={3}>
                 {(props.currentlySelected.workoutName) ? (
-                    <Grid item xs={9}>
+                    <Grid item xs={6}>
                         {(props.currentlySelected.imageUrl) ? (
                             <img style={{ maxWidth: '100%' }} src={props.currentlySelected.imageUrl} alt={props.currentlySelected.workoutName}></img>
                         ) : ("")}
@@ -21,24 +22,18 @@ const LogInfo = (props) => {
                 </Grid>  
                 )}
 
-                <Grid item xs={3}>
+                <Grid item xs={6}>
 
                     {(props.currentlySelected.workoutName) ? (
                         <>
-                            <h2>Details</h2>
-                            <h3>{props.currentlySelected.workoutName}</h3>
-                            <div>
-                                <p style={{ textTransform: 'capitalize' }}> {props.currentlySelected.workoutType} </p>
-                                <p style={{ textTransform: 'capitalize' }}>Equipment: {props.currentlySelected.equipment}</p>
-                                <p style={{ textTransform: 'capitalize' }}>Focus: {props.currentlySelected.focus}</p>
-                                <p style={{ textTransform: 'capitalize' }}>Difficulty: {props.currentlySelected.difficulty} / 5 </p>
+                            <LogForm
+                            logWorkout={props.logWorkout}
+                            />
 
-                                <ContainedButton
-                                    color="secondary"
-                                    text="Log this Workout"
-                                    onClick={props.logWorkout}>
-                                </ContainedButton>
-                            </div>
+                   
+                            <h3>{props.currentlySelected.workoutName}</h3>
+              
+                            
                         </>) : (
                             ""
                         )

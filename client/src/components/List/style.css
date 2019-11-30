@@ -3,7 +3,7 @@
   max-height: 100%;
   width: 100%;
   text-align: center;
-  border: 1px #DDDDDD solid;
+  /* border: 1px #DDDDDD solid; */
   border-radius: 4px;
   overflow-y: ellipse;
   overflow-x: hidden;
@@ -18,8 +18,11 @@
   border-radius: 0px;
   border-left: none;
   border-right: none;
+  margin: 0.2rem;
 }
-
+.list-overflow-container li *:hover {
+  background-color: #dddddd;
+}
 .list-overflow-container li * {
   cursor: pointer;
 }

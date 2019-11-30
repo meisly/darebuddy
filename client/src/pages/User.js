@@ -20,7 +20,7 @@ class Books extends Component {
     if (this.props.userData && !this.state.workouts) {
       API.getUserWorkouts(this.props.userData)
         .then(res => {
-          this.setState({ workouts: res.data.workouts })
+          this.setState({ workouts: res.data })
         })
         .catch(err => console.log(err));
     }
@@ -79,23 +79,23 @@ class Books extends Component {
             <Paper component="div">
               <List>
                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
-                  <ListItem key={workout.userworkouts.id} >
+                  <ListItem key={`UWO-${workout.id}`} >
                     <Paper style={{ padding: ".5rem", margin: "1rem", display: 'flex', justifyContent: 'left', overflow: 'hidden' }}>
                       <Grid container spacing={3}>
                         <Grid item xs={12}>
                           <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
-                            {workout.workoutName}
+                            {workout.workout.workoutName}
                           </Typography>
                         </Grid>
                         <Grid item xs={3}>
-                          <img style={{ maxWidth: '100%' }} src={workout.imageUrl} alt={`${workout.workoutName} Poster Mini`} />
+                          <img style={{ maxWidth: '100%' }} src={workout.workout.imageUrl} alt={`${workout.workout.workoutName} Poster Mini`} />
                         </Grid>
 
                         <Grid item xs={9} container direction='column' alignItems='stretch'>
                           <Grid item xs={1}></Grid>
                           <Grid item xs={9}>
                             <Typography component='h5' style={{ textAlign: 'left' }}>
-                              <strong>Notes:</strong>
+                              <strong>Notes:</strong>{workout.notes}
                             </Typography>
                             <Typography component='p'>
 
@@ -104,7 +104,7 @@ class Books extends Component {
                           <Grid item xs container>
                             <Grid item xs={9}>
                               <Typography component='p' style={{ float: 'left' }}>
-                                <strong>Completed on </strong>{this.convertDate(workout.userworkouts.createdAt)}
+                                <strong>Completed on </strong>{this.convertDate(workout.createdAt)}
                               </Typography>
                             </Grid>
                             <Grid item xs={3}>

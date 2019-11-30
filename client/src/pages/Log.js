@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AccordionMenu from "../components/AccordionMenu";
 import LogInfo from "../components/LogInfo";
-import { Paper, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import API from "../utils/API";
 
 
@@ -59,7 +59,7 @@ class Log extends Component {
 
   };
   selectProgramOrWorkout = (event) => {
-    const selected = event.target.getAttribute('data-id');
+    const selected = event.currentTarget.getAttribute('data-id');
     let query = selected.split("-");
     let [model, id] = query;
     if (model === "workout") {
@@ -81,9 +81,9 @@ class Log extends Component {
     }
 
   };
-  logWorkout = () => {
+  logWorkout = (date, notes) => {
     if (this.props.userData) {
-      API.logUserWorkout(this.props.userData, {'id': this.state.currentlySelected.id})
+      API.logUserWorkout(this.props.userData, {data: this.state.currentlySelected, date: date, notes: notes})
         .then(res => {
           console.log("You have logged a workout")
           console.log(res)
