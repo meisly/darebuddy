@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [1, 25],
           allowNull: false
       },
-      program_order: {
+      programOrder: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -59,10 +59,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "cascade"
       });
 
-      workouts.belongsToMany(models.users, {
-          through: {model: models.userworkouts, unique: false},
-          onDelete: 'cascade'
-      });
+      workouts.hasMany(models.userworkouts);
     };
     return workouts;
   };

@@ -1,62 +1,67 @@
 
 module.exports = (sequelize, DataTypes) => {
-    const userprograms = sequelize.define("userprograms", {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+  const userprograms = sequelize.define("userprograms", {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
       },
-      userId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'users',
-          key: 'id'
-        },
-        allowNull: false
+      allowNull: false
+    },
+    programId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'programs',
+        key: 'id'
       },
-      programId: {
-          type: DataTypes.INTEGER,
-          references: {
-            model: 'programs',
-            key: 'id'
-          },
-          allowNull: false
-      },
-      lastCompleted: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false
-      },
-      programLength: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      progress: {
-        type: DataTypes.FLOAT,
-        defaultValue: 0,
-        allowNull: false,
-        get () {
-          return (this.lastCompleted/this.programLength)
-        }
-      },
-      isCompleted: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-        get () {
-          return (this.lastCompleted === this.programLength)
-        }
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
+      allowNull: false
+    },
+    lastCompleted: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    },
+    programLength: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    progress: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+      allowNull: false,
+      get() {
+        return this.getDataValue('lastCompleted') / this.getDataValue('length')
       }
-    });
-    
-    return userprograms;
-  };
-  
+    },
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+      get() {
+        return (this.lastCompleted === this.programLength)
+      }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
+    }
+  }, {
+    getterMethods: {
+      getProgress: function () {
+        return this.getDataValue('lastCompleted') / this.getDataValue('length')
+      }
+    }
+  });
+
+  return userprograms;
+};

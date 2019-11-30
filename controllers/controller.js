@@ -74,14 +74,11 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     getUserWorkouts: function (req, res) {
-        db.users
-            .findOne({
-                where: { 'id': req.params.id },
+        db.userworkouts
+            .findAll({
+                where: { 'userId': req.params.id },
                 include: [{
                     model: db.workouts,
-                    through: {
-                        model: db.userworkouts
-                    }
                 }]
             })
             .then(dbResult => {
@@ -91,25 +88,40 @@ module.exports = {
 
     },
     logUserWorkout: function (req, res) {
-        db.users
-            .findOne({ where: { 'id': req.params.id } })
-            .then(result => {
-                result
-                    .addWorkout(req.body.id)
-                    .then(dbResult => {
-                        res.json(dbResult)
-                    })
-                    .catch(err => res.status(422).json(err));
+        let data = req.body.data;
+        let notes = req.body.notes;
+        let date = req.body.date;
+        console.log(JSON.stringify(req.body.data.data, null, 2))
+        db.userworkouts
+            .create({
+                'userId': req.params.id,
+                'workoutId': data.id,
+                'notes': notes,
+                'createdAt': date
             })
-
+            .then(result => {
+                db.userprograms
+                    .update({
+                        'lastCompleted': data.programOrder,
+                        'progress': db.userprograms.progress
+                    }, {
+                        where: {
+                            'userId': req.params.id,
+                            'programId': data.programId
+                        }
+                    })
+                    .then(result => {
+                        console.log(result)
+                        res.json(result)
+                        console.log('you updated userprogram')
+   
+                    })
+            })
+            .catch(err => res.status(422).json(err));
     },
     getUserPrograms: function (req, res) {
         db.sequelize.query(`SELECT * FROM userprograms up INNER JOIN programs p ON up.programId = p.id WHERE up.userId = ${req.params.id};`,
             { replacements: [req.params.id], type: db.sequelize.QueryTypes.SELECT, plain: false, raw: true })
-            // db.userprograms
-            //     .findAll({
-            //         where: { 'userId': req.params.id },
-            //     })
             .then((data) => {
                 res.json(data)
             })
@@ -124,7 +136,7 @@ module.exports = {
             'programId': req.body.data.id,
             'programLength': req.body.data.length,
             'lastCompleted': 0,
-            
+
         })
             .then(dbResult => {
                 res.json(dbResult)

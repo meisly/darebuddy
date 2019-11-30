@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
           },
           allowNull: false
       },
+      notes: {
+          type: DataTypes.TEXT
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
@@ -31,7 +34,15 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
       }
     });
-    
+    userworkouts.associate = function (models) {
+      userworkouts.belongsTo(models.users, {
+        onDelete: "cascade"
+      });
+
+      userworkouts.belongsTo(models.workouts, {
+          onDelete: 'cascade'
+      });
+    };
     return userworkouts;
   };
   
