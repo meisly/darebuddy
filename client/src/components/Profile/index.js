@@ -1,15 +1,52 @@
 // src/components/Profile.js
 
-import React, { Fragment } from "react";
-import { Paper, Grid, Typography } from "@material-ui/core";
+import React, { Fragment, useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Paper,
+  Grid,
+  Typography,
+  IconButton,
+  Tooltip,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "@material-ui/core";
 import { useAuth0 } from "../../react-auth0-spa";
 import { Line } from 'rc-progress';
 import moment from "moment";
+import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
+import API from "../../utils/API";
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    outline: 'solid #80808038 1px',
+    padding: '1rem'
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '90%',
+  },
+}));
 
 const Profile = (props) => {
   const { loading, user } = useAuth0();
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   if (loading || !user) {
     return (
@@ -55,35 +92,99 @@ const Profile = (props) => {
                   <Typography variant='h4' component='h4'>Current programs:</Typography>
                   {props.programs.map(program => (
                     <Grid container spacing={1}>
-                      <Grid item xs={12} container style={{paddingBottom: '0'}}>
-                        <Grid item xs style={{paddingBottom: '0'}}>
+                      <Grid item xs={12} container style={{ paddingBottom: '0' }}>
+                        <Grid item xs style={{ paddingBottom: '0' }}>
                           <Typography component='span' >{program.programName}</Typography>
                         </Grid>
-                        <Grid item xs={8} style={{paddingTop: '0'}}>
-                          <Line style={{ width: '90%' }} percent={100*(program.lastCompleted/program.length)} strokeWidth="5" trailWidth="5" strokeColor="#3AFE2D" trailColor="#FE1212"></Line>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs style={{paddingTop: '0'}}>
-                      <Typography component='a' style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}>
-                          Next workout
-                        </Typography>
-                        <Typography component='p' style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}>
-                          {program.lastCompleted} of {program.length} completed 
-                        </Typography>
-
+                        <Grid item xs={8} style={{ paddingTop: '0' }}>
+                          <Line
+                            style={{ width: '80%' }}
+                            percent={100 * (program.lastCompleted / program.length)}
+                            strokeWidth="5"
+                            trailWidth="5"
+                            strokeColor="#3AFE2D"
+                            trailColor="#FE1212"
+                          />
+                          <Tooltip title="Delete Program">
+                            <IconButton style={{ width: '20%' }}
+                              aria-label="delete"
+                              color="primary"
+                              onClick={handleClickOpen}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Tooltip>
+                          <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                          >
+                            <DialogTitle id="alert-dialog-title">{'Permanently Delete Program'}</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText id="alert-dialog-description">
+                                {'Would you like to permanently delete this program?  This will cause you to lose all progress'}
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} color="primary">
+                                Cancel
+                              </Button>
+                              <Button
+                                onClick={()=>{
+                                  console.log(program)
+                                  API.deleteUserProgram(program)
+                                    .then(res=>{
+                                      props.updatePrograms();
+                                    })
+                                  handleClose();
+                                }} 
+                              color="secondary"
+                              >
+                              Delete
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
                       </Grid>
                     </Grid>
-                  ))}
+                    <Grid item xs style={{ paddingTop: '0' }}>
+                      <Link
+                        to={{
+                          pathname: '/log',
+                          state: {
+                            programId: program.id,
+                            programOrder: program.lastCompleted + 1
+                          }
+                        }}
+                      >
+                        <Typography
+                          component='a'
+                          style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
+
+                        >
+                          Next workout
+                          </Typography>
+                      </Link>
+                      <Typography
+                        component='p'
+                        style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
+                      >
+                        {program.lastCompleted} of {program.length} completed
+                        </Typography>
+
+                    </Grid>
+                    </Grid>
+              ))}
                 </Paper>
-              ) : ""}
+            ) : ""}
             </Grid>
-            <div name="col1">
+          <div name="col1">
 
 
 
-            </div>
-          </Grid>
-          {/* <Grid
+          </div>
+        </Grid>
+        {/* <Grid
             item
             xs={6}
             sm={4}
@@ -106,7 +207,7 @@ const Profile = (props) => {
           </Grid> */}
         </Grid>
       </Paper>
-    </Fragment>
+    </Fragment >
   );
 };
 

@@ -1,9 +1,36 @@
-import React from "react";
-import { Paper, Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+    Paper,
+    Grid,
+    IconButton,
+    Snackbar,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import ContainedButton from "../ContainedButtons";
 import LogForm from "../LogForm";
 
+const useStyles = makeStyles(theme => ({
+    close: {
+      padding: theme.spacing(0.5),
+    },
+  }));
+
 const LogInfo = (props) => {
+    const classes = useStyles();
+
+    const [dialogMessageText, setDialogMessageText] = useState("Congratulations, you're swell....or you will be once you finish this program");
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+          }
+        setOpen(false);
+    };
 
     return (
         <Paper style={{ margin: '2rem', padding: '1rem' }}>
@@ -15,25 +42,21 @@ const LogInfo = (props) => {
                         ) : ("")}
                     </Grid>
                 ) : (
-                    <Grid item xs={12}>
-                    {(props.currentlySelected.imageUrl) ? (
-                        <img style={{ maxWidth: '100%' }} src={props.currentlySelected.imageUrl} alt={props.currentlySelected.programName}></img>
-                    ) : ("")}
-                </Grid>  
-                )}
+                        <Grid item xs={12}>
+                            {(props.currentlySelected.imageUrl) ? (
+                                <img style={{ maxWidth: '100%' }} src={props.currentlySelected.imageUrl} alt={props.currentlySelected.programName}></img>
+                            ) : ("")}
+                        </Grid>
+                    )}
 
                 <Grid item xs={6}>
 
                     {(props.currentlySelected.workoutName) ? (
                         <>
                             <LogForm
-                            logWorkout={props.logWorkout}
+                                logWorkout={props.logWorkout}
                             />
 
-                   
-                            <h3>{props.currentlySelected.workoutName}</h3>
-              
-                            
                         </>) : (
                             ""
                         )
@@ -45,10 +68,48 @@ const LogInfo = (props) => {
                             <h4 style={{ textAlign: 'center' }}>Description</h4>
                             <p>{props.currentlySelected.description}</p>
                             <ContainedButton
-                                    color="secondary"
-                                    text="Start Program"
-                                    onClick={props.addProgram}>
-                                </ContainedButton>
+                                color="secondary"
+                                text="Start Program"
+                                onClick={() => {
+                                    props.addProgram()
+                                        .then(res => {
+                                            if (res) {
+                                                handleClickOpen();
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.log(err)
+                                            setDialogMessageText("Oops, something has gone wrong. Try again later");
+                                            handleClickOpen();
+
+                                        })
+                                }}
+                            >
+                            </ContainedButton>
+                            <Snackbar
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                open={open}
+                                autoHideDuration={6000}
+                                onClose={handleClose}
+                                ContentProps={{
+                                    'aria-describedby': 'message-id',
+                                }}
+                                message={<span id="message-id">{dialogMessageText}</span>}
+                                action={[
+                                    <IconButton
+                                        key="close"
+                                        aria-label="close"
+                                        color="inherit"
+                                        className={classes.close}
+                                        onClick={handleClose}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>,
+                                ]}
+                            />
                         </div>
                     ) : ""}
                 </Grid>

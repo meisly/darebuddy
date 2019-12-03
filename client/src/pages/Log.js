@@ -17,6 +17,14 @@ class Log extends Component {
 
 
   componentDidMount() {
+    if(this.props.location && this.props.location.state ){
+      let { programOrder, programId } = this.props.location.state;
+      API.getWorkoutInProgram(programId, programOrder)
+        .then(res=>{
+          console.log(res)
+          this.setState({currentlySelected: res.data})
+        });
+    }
     this.getWorkouts();
     this.getPrograms();
     this.getChallenges();
@@ -52,10 +60,10 @@ class Log extends Component {
   };
   getRecentWorkouts = () => {
     API.getRecentWorkouts()
-    .then(res => {
-      this.setState({ recent: res.data })
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        this.setState({ recent: res.data })
+      })
+      .catch(err => console.log(err));
 
   };
   selectProgramOrWorkout = (event) => {
@@ -70,36 +78,28 @@ class Log extends Component {
           console.log(this.state.currentlySelected)
         })
         .catch(err => console.log(err));
-    }else {
+    } else {
       API.findProgram(id)
-      .then(res => {
-        this.setState({ currentlySelected: res.data })
-        console.log("You have selected")
-        console.log(this.state.currentlySelected)
-      })
-      .catch(err => console.log(err));
+        .then(res => {
+          this.setState({ currentlySelected: res.data })
+          console.log("You have selected")
+          console.log(this.state.currentlySelected)
+        })
+        .catch(err => console.log(err));
     }
 
   };
   logWorkout = (date, notes) => {
     if (this.props.userData) {
-      API.logUserWorkout(this.props.userData, {data: this.state.currentlySelected, date: date, notes: notes})
-        .then(res => {
-          console.log("You have logged a workout")
-          console.log(res)
-        })
-        .catch(err => console.log(err));
+      return API.logUserWorkout(this.props.userData, { data: this.state.currentlySelected, date: date, notes: notes })
     }
+    return Promise.resolve(undefined);
   }
-  addProgram = () =>{
+  addProgram = () => {
     if (this.props.userData) {
-      API.addUserProgram(this.props.userData, {"program": this.state.currentlySelected})
-        .then(res => {
-          console.log("You have added a new program")
-          console.log(res)
-        })
-        .catch(err => console.log(err));
+      return API.addUserProgram(this.props.userData, { "program": this.state.currentlySelected });
     }
+    return Promise.resolve(undefined);
   }
   render() {
 
@@ -125,12 +125,12 @@ class Log extends Component {
           </Grid>
           <Grid item xs={12} sm={8}>
             <LogInfo
-            currentlySelected={this.state.currentlySelected}
-            logWorkout={this.logWorkout}
-            addProgram={this.addProgram}
+              currentlySelected={this.state.currentlySelected}
+              logWorkout={this.logWorkout}
+              addProgram={this.addProgram}
             >
             </LogInfo>
-            
+
           </Grid>
         </Grid>
       </div>

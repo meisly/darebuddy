@@ -34,18 +34,12 @@ module.exports = (sequelize, DataTypes) => {
     progress: {
       type: DataTypes.FLOAT,
       defaultValue: 0,
-      allowNull: false,
-      get() {
-        return this.getDataValue('lastCompleted') / this.getDataValue('length')
-      }
+      allowNull: false
     },
     isCompleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
-      get() {
-        return (this.lastCompleted === this.programLength)
-      }
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -54,12 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       type: DataTypes.DATE,
       defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
-    }
-  }, {
-    getterMethods: {
-      getProgress: function () {
-        return this.getDataValue('lastCompleted') / this.getDataValue('length')
-      }
     }
   });
 

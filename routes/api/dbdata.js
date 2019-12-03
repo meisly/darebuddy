@@ -7,8 +7,12 @@ router.route("/:model")
 
 router.route("/program/id/:query")
     .get(controller.findProgram);
+
 router.route("/workout/id/:query")
     .get(controller.findWorkout);
+
+router.route("/program/workout")
+    .get(controller.getWorkoutInProgram);
 
 router.route("/programs/challenges")
     .get(controller.findChallenges);
@@ -25,6 +29,8 @@ router.route("/userprograms/user/:id")
   .get(controller.getUserPrograms);
 router.route("/userprograms/user/:id")
   .post(controller.addUserProgram);
+router.route("/userprograms/:id")
+  .delete(controller.deleteUserProgram);
 
 router.route("/user")
   .post(controller.getUser);

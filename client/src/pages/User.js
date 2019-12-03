@@ -38,11 +38,19 @@ class Books extends Component {
         })
         .catch(err => console.log(err));
     }
-  };
+  }
   updateUserData = () => {
     if (this.props.userData !== this.state.userData) {
       this.setState({ userData: this.props.userData })
     }
+  }
+  updatePrograms = () => {
+    API.getUserPrograms(this.props.userData)
+      .then(res => {
+        console.log(res)
+        this.setState({ programs: res.data })
+      })
+      .catch(err => console.log(err));
   }
 
   componentDidUpdate() {
@@ -59,6 +67,7 @@ class Books extends Component {
     return (
       <div>
         <Profile
+          updatePrograms={this.updatePrograms}
           programs={this.state.programs}
           userData={this.props.userData}
         ></Profile>
@@ -85,18 +94,18 @@ class Books extends Component {
                   <ListItem key={`UWO-${workout.id}`} >
                     <Paper style={{ padding: ".5rem", margin: "1rem", display: 'flex', justifyContent: 'left', overflow: 'hidden' }}>
                       <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                          <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
-                            {workout.workout.workoutName}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                          <img style={{ maxWidth: '100%' }} src={workout.workout.imageUrl} alt={`${workout.workout.workoutName} Poster Mini`} />
+
+                        <Grid item xs={2}>
+                          <img style={{ maxWidth: '90%' }} src="/images/stretching-exercises.png" alt={`${workout.workout.workoutName} Poster Mini`} />
                         </Grid>
 
-                        <Grid item xs={9} container direction='column' alignItems='stretch'>
-                          <Grid item xs={1}></Grid>
-                          <Grid item xs={9}>
+                        <Grid item xs={10} container>
+                          <Grid item xs={12}>
+                            <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
+                              {workout.workout.workoutName}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
                             <Typography component='h5' style={{ textAlign: 'left' }}>
                               <strong>Notes:</strong>{workout.notes}
                             </Typography>

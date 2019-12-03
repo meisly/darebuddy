@@ -3,12 +3,21 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ContainedButton from "../ContainedButtons";
-import Grid from '@material-ui/core/Grid';
+import {
+    Grid,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -28,14 +37,22 @@ const useStyles = makeStyles(theme => ({
 
 export default function LogForm(props) {
     const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    const [dialogMessageText, setDialogMessageText] = useState("You have successfuly logged a workout!");
+    const [dialogTitleText, setDialogTitleText] = useState("Workout Logged");
 
     const [value, setValue] = useState({
         selectedDate: new Date(),
         logNotes: [""]
     });
-
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleDateChange = date => {
-        setValue({...value, selectedDate: [date]})
+        setValue({ ...value, selectedDate: [date] })
     };
     const handleChange = event => {
         setValue({
@@ -82,10 +99,39 @@ export default function LogForm(props) {
                     text="Log this Workout"
                     onClick={() => {
                         props.logWorkout(value.selectedDate, value.logNotes[0])
-                        console.log(value.selectedDate)
-                        console.log(value.logNotes[0])
+                            .then(res => {
+                                if (res) {
+                                    handleClickOpen();
+                                }
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                setDialogTitleText("Error")
+                                setDialogMessageText("Oops, something has gone wrong. Try again later");
+                                handleClickOpen();
+
+                            })
+
                     }}>
                 </ContainedButton>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{dialogTitleText}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {dialogMessageText}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Continue
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </form>
     );

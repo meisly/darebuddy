@@ -48,6 +48,17 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    getWorkoutInProgram: function (req, res) {
+        db.workouts
+            .findOne({
+                where: {
+                    'programId': req.query.program,
+                    'programOrder': req.query.index
+                }
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
     getUser: function (req, res) {
         db.users
             .findOrCreate({ where: { email: req.body.email }, defaults: { userName: req.body.name, profileUrl: req.body.img } })
@@ -91,7 +102,7 @@ module.exports = {
         let data = req.body.data;
         let notes = req.body.notes;
         let date = req.body.date;
-        console.log(JSON.stringify(req.body.data.data, null, 2))
+
         db.userworkouts
             .create({
                 'userId': req.params.id,
@@ -100,33 +111,49 @@ module.exports = {
                 'createdAt': date
             })
             .then(result => {
-                db.userprograms
-                    .update({
-                        'lastCompleted': data.programOrder,
-                        'progress': db.userprograms.progress
-                    }, {
-                        where: {
-                            'userId': req.params.id,
-                            'programId': data.programId
-                        }
-                    })
-                    .then(result => {
-                        console.log(result)
-                        res.json(result)
-                        console.log('you updated userprogram')
-   
-                    })
+
+                db.programs.findOne({ where: { 'id': data.programId } }).then(program => {
+                    db.userprograms
+                        .update({
+                            'lastCompleted': data.programOrder,
+                            'progress': data.programOrder / program.length,
+                            'isCompleted': (data.programOrder === program.length)
+                        }, {
+                            where: {
+                                'userId': req.params.id,
+                                'programId': data.programId,
+                                'isCompleted': 0
+                            }
+                        })
+                        .then(result => {
+
+                            res.json(result)
+
+                        })
+                })
+
             })
             .catch(err => res.status(422).json(err));
     },
     getUserPrograms: function (req, res) {
-        db.sequelize.query(`SELECT * FROM userprograms up INNER JOIN programs p ON up.programId = p.id WHERE up.userId = ${req.params.id};`,
+        db.sequelize.query(`SELECT up.*, p.*, up.id FROM userprograms up INNER JOIN programs p ON up.programId = p.id WHERE up.userId = ${req.params.id} AND up.isCompleted = 0;`,
             { replacements: [req.params.id], type: db.sequelize.QueryTypes.SELECT, plain: false, raw: true })
             .then((data) => {
                 res.json(data)
             })
             .catch(err => res.status(422).json(err));
 
+    },
+    deleteUserProgram: function (req, res) {
+        db.userprograms.destroy({
+            where: {
+                'id': req.params.id
+            }
+        })
+            .then(dbResult => {
+                res.json(dbResult)
+            })
+            .catch(err => res.status(422).json(err));
     },
     addUserProgram: function (req, res) {
         console.log(req.body)

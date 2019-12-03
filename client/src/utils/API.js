@@ -38,9 +38,9 @@ export default {
   // getHeader();
     return instance.get("/program/id/" + query);
   },
-  getStuffWhere: function (model, column, query) {
+  getWorkoutInProgram: function (programId, programOrder) {
     // getHeader();
-    return instance.get(`/${model}/${column}/${query}`);
+    return instance.get(`/program/workout?program=${programId}&index=${programOrder}`);
   },
   getChallenges: function () {
    // getHeader();
@@ -67,6 +67,9 @@ export default {
     return instance.post(`/userprograms/user/${user.id}`, {
      data: program.program
     })
+  },
+  deleteUserProgram: function (userprogram) {
+    return instance.delete(`/userprograms/${userprogram.id}`)
   },
   getUserWorkouts: function (user) {
     // getHeader();
