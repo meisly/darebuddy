@@ -22,6 +22,11 @@
 }
 .list-overflow-container li *:hover {
   background-color: #dddddd;
+  color: red;
+}
+.list-overflow-container li *:active {
+  background-color: #dddddd;
+  color: red;
 }
 .list-overflow-container li * {
   cursor: pointer;

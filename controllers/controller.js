@@ -8,6 +8,30 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    getYourWorkouts: function (req, res) {
+        db.workouts
+            .findAll({
+                where: {
+                    'programId': {
+                        [db.Op.in]: JSON.parse(req.query.programIds)
+                    }
+                }
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    getPrograms: function (req, res) {
+        db.programs
+            .findAll({
+                where: {
+                    'category': {
+                        [db.Op.ne]: "challenge"
+                    }
+                }
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
     findAllWhere: function (req, res) {
         db[req.params.model]
             .findAll({
@@ -68,17 +92,16 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     getRecentWorkouts: function (req, res) {
-        db.users
-            .findOne({
-                where: { 'id': req.params.id },
-                include: [{
-                    model: db.workouts,
-                    through: {
-                        model: db.userworkouts,
-                    },
-                    order: [[db.Sequelize.literal('userworkouts.order'), 'ASC']],
-                }],
-            })
+        db.sequelize.query("SELECT workouts.*, userworkouts.workoutId, userworkouts.createdAt AS completedAt FROM userworkouts INNER JOIN workouts ON userworkouts.workoutId = workouts.id WHERE userworkouts.userId = ? ORDER BY userworkouts.updatedAt DESC LIMIT ?",
+            { replacements: [req.params.id, parseInt(req.query.n)], type: db.sequelize.QueryTypes.SELECT, plain: false, raw: true })
+            // db.userworkouts
+            //     .findAll({
+            //         where: {
+            //             'userId': req.params.id,
+            //         },
+            //         limit: parseInt(req.query.n),
+            //         order: [['updatedAt', 'DESC']]
+            //     })
             .then(dbResult => {
                 res.json(dbResult)
             })

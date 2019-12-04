@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List, ListItem } from "../List";
 import { Paper, Box } from "@material-ui/core";
+import moment from "moment";
+
 require("./style.css");
 
 const useStyles = makeStyles(theme => ({
@@ -28,8 +30,10 @@ export default function AccordionMenu(props) {
         setExpanded(isExpanded ? panel : false);
     };
 
+
     return (
         <div className={classes.root}>
+            {console.log(props.recent)}
             <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -49,11 +53,19 @@ export default function AccordionMenu(props) {
                                         dataId={`workout-${workout.id}`}
                                     >
                                         <Paper
-                                        elevation={2}>
+                                            elevation={2}
+                                            style={{
+                                                padding: '.5rem',
+                                                lineHeight: '.5rem'
+                                            }}
+                                        >
                                             <Typography
                                                 component="h6"
                                                 variant="h6"
-                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+                                                style={{
+                                                    textTransform: 'capitalize',
+                                                    textDecoration: 'none'
+                                                }}
 
                                             >
                                                 {workout.workoutName}
@@ -98,7 +110,13 @@ export default function AccordionMenu(props) {
                                         dataId={`program-${program.id}`}
 
                                     >
-                                        <Paper>
+                                        <Paper
+                                            elevation={2}
+                                            style={{
+                                                padding: '.5rem',
+                                                lineHeight: '.5rem'
+                                            }}
+                                        >
                                             <Typography
                                                 component='h5'
                                                 variant="h5"
@@ -138,7 +156,13 @@ export default function AccordionMenu(props) {
                                         onClick={props.onClick}
                                         dataId={`program-${challenge.id}`}
                                     >
-                                        <Paper>
+                                        <Paper
+                                            elevation={2}
+                                            style={{
+                                                padding: '.5rem',
+                                                lineHeight: '.5rem'
+                                            }}
+                                        >
                                             <Typography
                                                 component="h5"
                                                 variant="h5"
@@ -175,18 +199,38 @@ export default function AccordionMenu(props) {
                             {props.recent.map(workout => {
                                 return (
                                     <ListItem
-                                        key={`workout-${workout.id}`}
+                                        key={`recent-${workout.createdAt}`}
                                         onClick={props.onClick}
                                         dataId={`workout-${workout.id}`}
                                     >
-                                        <Typography
-                                            component="h4"
-                                            variant="h4"
-                                            style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+                                        <Paper
+                                            style={{
+                                                padding: '.5rem',
+                                                lineHeight: '.5rem'
+                                            }}
+                                            elevation={2}>
+                                            <Typography
+                                                component="h6"
+                                                variant="h6"
+                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
 
-                                        >
-                                            {workout.workoutName}
-                                        </Typography>
+                                            >
+                                                {workout.workoutName}
+                                            </Typography>
+                                            <Typography
+                                                compnent="p"
+                                                style={{ textTransform: 'capitalize' }}
+                                            >
+                                                Completed {moment(workout.completedAt).format('MMM Do YYYY')}
+                                            </Typography>
+                                            <Typography
+                                                component="p"
+                                            >
+                                                Difficulty: {workout.difficulty}/5
+                                            </Typography>
+
+                                        </Paper>
+
                                     </ListItem>
                                 )
                             })}
@@ -194,6 +238,6 @@ export default function AccordionMenu(props) {
                     </Box>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-        </div>
+        </div >
     );
 }

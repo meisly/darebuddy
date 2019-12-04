@@ -30,6 +30,12 @@ export default {
     // getHeader();
     return instance.get("/" + query);
   },
+  getYourWorkouts: function (programIds) {
+    return instance.get(`/workouts/?programIds=${programIds}`)
+  },
+  getPrograms: function() {
+    return instance.get("/programs/")
+  },
   findWorkout: function (query) {
     // getHeader();
     return instance.get("/workout/id/" + query);
@@ -48,7 +54,7 @@ export default {
   },
   getRecentWorkouts: function (user) {
     // getHeader();
-    return instance.get(`/userworkouts/user/${user.id}/?:n=10`)
+    return instance.get(`/userworkouts/user/${user.id}/last?n=10`)
   },
   getUser: function (user) {
     // getHeader();

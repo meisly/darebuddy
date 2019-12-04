@@ -6,136 +6,187 @@ import API from "../utils/API";
 
 
 class Log extends Component {
-  state = {
-    userData: this.props.userData,
-    workouts: [],
-    programs: [],
-    challenges: [],
-    recent: [],
-    currentlySelected: {}
-  };
+    state = {
+        workouts: [],
+        programs: [],
+        challenges: [],
+        userprograms: null,
+        recent: [],
+        currentlySelected: {}
+    };
 
 
-  componentDidMount() {
-    if(this.props.location && this.props.location.state ){
-      let { programOrder, programId } = this.props.location.state;
-      API.getWorkoutInProgram(programId, programOrder)
-        .then(res=>{
-          console.log(res)
-          this.setState({currentlySelected: res.data})
-        });
-    }
-    this.getWorkouts();
-    this.getPrograms();
-    this.getChallenges();
-  }
+    componentDidMount() {
+        if (this.props.location && this.props.location.state) {
+            let { programOrder, programId, programType } = this.props.location.state;
+            if (programType === 'challenge') {
+                API.findProgram(programId)
+                    .then(res => {
+                        this.setState({ currentlySelected: res.data })
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                API.getWorkoutInProgram(programId, programOrder)
+                    .then(res => {
+                        console.log(res)
+                        this.setState({ currentlySelected: res.data })
+                    });
+            }
+        }
+        // this.getWorkouts();
+        this.getUserPrograms();
+        this.getPrograms();
+        this.getChallenges();
+        this.getRecentWorkouts(this.props.userData);
+        this.getYourWorkouts();
+        this.getRandomWorkouts();
+    };
+    getUserPrograms = () => {
+        if (this.props.userData && !this.state.userprograms) {
+            API.getUserPrograms(this.props.userData)
+                .then(res => {
+                    console.log(res)
+                    this.setState({ userprograms: res.data })
+                })
+                .catch(err => console.log(err));
+        }
+    };
+    getRandomWorkouts = () => {
+        API.getStuff("workouts")
+            .then(res => {
+                this.setState({ workouts: [...res.data] })
+            })
+            .catch(err => { console.log(err) })
+    };
+    getYourWorkouts = () => {
+        let programIds = [];
+        if (this.state.userprograms) {
+            this.state.userprograms.map(program => {
+                programIds.push(program.programId);
 
-  getWorkouts = () => {
-    API.getStuff("workouts")
-      .then(res => {
-        this.setState({ workouts: res.data })
+                if (programIds.length === this.state.userprograms.length) {
+                    API.getYourWorkouts(programIds)
+                        .then(res => {
+                            this.setState({ workouts: res.data })
+                        })
+                        .catch(err => console.log(err))
+                }
+            })
+        } else {
+            this.getUserPrograms();
+            setTimeout(this.getYourWorkouts, 500)
+        }
+    };
 
-      })
-      .catch(err => console.log(err));
+    getChallenges = () => {
+        API.getChallenges()
+            .then(res => {
+                this.setState({ challenges: res.data })
+            })
+            .catch(err => console.log(err));
+    };
 
-  };
-  getChallenges = () => {
-    API.getChallenges()
-      .then(res => {
-        this.setState({ challenges: res.data })
-      })
-      .catch(err => console.log(err));
-  };
+    getPrograms = () => {
+        API.getPrograms()
+            .then(res => {
+                this.setState({ programs: res.data })
+            })
+            .catch(err => console.log(err));
 
-  getPrograms = () => {
-    API.getStuff("programs")
-      .then(res => {
-        this.setState({ programs: res.data })
-      })
-      .catch(err => console.log(err));
+    };
 
-  };
-  updateUserData = () => {
+    getRecentWorkouts = (userData) => {
+        if (userData) {
+            API.getRecentWorkouts(userData)
+                .then(res => {
+                    this.setState({ recent: res.data })
+                })
+                .catch(err => console.log(err));
+        } else {
+            setTimeout(() => {
+                this.getRecentWorkouts(this.props.userData)
+            }, 5000)
+        }
 
-  };
-  getRecentWorkouts = () => {
-    API.getRecentWorkouts()
-      .then(res => {
-        this.setState({ recent: res.data })
-      })
-      .catch(err => console.log(err));
 
-  };
-  selectProgramOrWorkout = (event) => {
-    const selected = event.currentTarget.getAttribute('data-id');
-    let query = selected.split("-");
-    let [model, id] = query;
-    if (model === "workout") {
-      API.findWorkout(id)
-        .then(res => {
-          this.setState({ currentlySelected: res.data })
-          console.log("You have selected")
-          console.log(this.state.currentlySelected)
-        })
-        .catch(err => console.log(err));
-    } else {
-      API.findProgram(id)
-        .then(res => {
-          this.setState({ currentlySelected: res.data })
-          console.log("You have selected")
-          console.log(this.state.currentlySelected)
-        })
-        .catch(err => console.log(err));
-    }
+    };
+    selectProgramOrWorkout = (event) => {
+        const selected = event.currentTarget.getAttribute('data-id');
+        let query = selected.split("-");
+        let [model, id] = query;
+        if (model === "workout") {
+            API.findWorkout(id)
+                .then(res => {
+                    this.setState({ currentlySelected: res.data })
+                    console.log("You have selected")
+                    console.log(this.state.currentlySelected)
+                })
+                .catch(err => console.log(err));
+        } else {
+            API.findProgram(id)
+                .then(res => {
+                    this.setState({ currentlySelected: res.data })
+                    console.log("You have selected")
+                    console.log(this.state.currentlySelected)
+                })
+                .catch(err => console.log(err));
+        }
+    };
 
-  };
-  logWorkout = (date, notes) => {
-    if (this.props.userData) {
-      return API.logUserWorkout(this.props.userData, { data: this.state.currentlySelected, date: date, notes: notes })
-    }
-    return Promise.resolve(undefined);
-  }
-  addProgram = () => {
-    if (this.props.userData) {
-      return API.addUserProgram(this.props.userData, { "program": this.state.currentlySelected });
-    }
-    return Promise.resolve(undefined);
-  }
-  render() {
+    logWorkout = (date, notes) => {
+        if (this.props.userData) {
+            return API.logUserWorkout(this.props.userData, { data: this.state.currentlySelected, date: date, notes: notes })
+        }
+        return Promise.resolve(undefined);
+    };
 
-    return (
-      <div>
-        <Grid container>
-          <Grid
-            item
-            xs={12}
-            sm={3}
-            style={{ margin: "2rem" }}
-          >
-            <AccordionMenu
-              previous={"Recent Workouts"}
-              workouts={this.state.workouts}
-              programs={this.state.programs}
-              challenges={this.state.challenges}
-              recent={this.state.recent}
-              onClick={this.selectProgramOrWorkout}
-            >
+    addProgram = () => {
+        if (this.props.userData) {
+            return API.addUserProgram(this.props.userData, { "program": this.state.currentlySelected });
+        }
+        return Promise.resolve(undefined);
+    };
 
-            </AccordionMenu>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <LogInfo
-              currentlySelected={this.state.currentlySelected}
-              logWorkout={this.logWorkout}
-              addProgram={this.addProgram}
-            >
-            </LogInfo>
+    clearSelected = () => {
+        this.setState({ currentlySelected: {} })
+    };
 
-          </Grid>
-        </Grid>
-      </div>
-    )
-  };
+    render() {
+
+        return (
+            <div>
+                <Grid container>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={3}
+                        style={{ margin: "2rem" }}
+                    >
+                        <AccordionMenu
+                            previous={"Recent Workouts"}
+                            workouts={this.state.workouts}
+                            programs={this.state.programs}
+                            challenges={this.state.challenges}
+                            recent={this.state.recent}
+                            onClick={this.selectProgramOrWorkout}
+                        >
+
+                        </AccordionMenu>
+                    </Grid>
+                    <Grid item xs={12} sm={8}>
+                        <LogInfo
+                            currentlySelected={this.state.currentlySelected}
+                            logWorkout={this.logWorkout}
+                            addProgram={this.addProgram}
+                            clearSelected={this.clearSelected}
+                        >
+                        </LogInfo>
+
+                    </Grid>
+                </Grid>
+            </div>
+        )
+    };
 }
 
 export default Log;

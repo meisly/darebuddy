@@ -152,7 +152,8 @@ const Profile = (props) => {
                         to={{
                           pathname: '/log',
                           state: {
-                            programId: program.id,
+                            programType: program.category,
+                            programId: program.programId,
                             programOrder: program.lastCompleted + 1
                           }
                         }}

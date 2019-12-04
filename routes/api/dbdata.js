@@ -5,6 +5,14 @@ const controller = require("../../controllers/controller");
 router.route("/:model")
   .get(controller.findAll);
 
+router.route("/programs/")
+  .get(controller.getPrograms);
+
+router.route("/workouts")
+  .get(controller.findAll);
+router.route("/workouts/")
+  .get(controller.getYourWorkouts);
+
 router.route("/program/id/:query")
     .get(controller.findProgram);
 
@@ -22,7 +30,7 @@ router.route("/userworkouts/user/:id")
 router.route("/userworkouts/user/:id")
   .post(controller.logUserWorkout)
 
-router.route("/userworkouts/user/:id/recent")
+router.route("/userworkouts/user/:id/last")
     .get(controller.getRecentWorkouts);
 
 router.route("/userprograms/user/:id")

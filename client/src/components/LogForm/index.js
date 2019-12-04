@@ -127,7 +127,12 @@ export default function LogForm(props) {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button
+                            onClick={() => {
+                                handleClose()
+                                setTimeout(props.clearSelected, 300)
+                            }} 
+                            color="primary">
                             Continue
                         </Button>
                     </DialogActions>
