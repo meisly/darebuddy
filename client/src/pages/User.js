@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Profile from "../components/Profile"
-import { Paper, Grid, Typography } from "@material-ui/core";
+import { Paper, Grid, Typography, Hidden, withWidth } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
 import moment from "moment";
@@ -10,136 +10,144 @@ import API from "../utils/API";
 
 class Books extends Component {
 
-  state = {
-    workouts: null,
-    programs: null,
-    userData: this.props.userData
-  };
+    state = {
+        workouts: null,
+        programs: null
+    };
 
-  getUserWorkouts = () => {
-    if (this.props.userData && !this.state.workouts) {
-      API.getUserWorkouts(this.props.userData)
-        .then(res => {
-          if (res.data.length > 0) {
-            this.setState({ workouts: res.data })
-          }
+    getUserWorkouts = () => {
+        if (this.props.userData && !this.state.workouts) {
+            API.getUserWorkouts(this.props.userData)
+                .then(res => {
+                    if (res.data.length > 0) {
+                        this.setState({ workouts: res.data })
+                    }
 
-        })
-        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
+        } else {
+            setTimeout(this.getUserWorkouts, 500)
+        }
+    };
+
+    getUserPrograms = () => {
+        if (this.props.userData && !this.state.programs) {
+            API.getUserPrograms(this.props.userData)
+                .then(res => {
+                    console.log(res)
+                    this.setState({ programs: res.data })
+                })
+                .catch(err => console.log(err));
+        } else {
+            setTimeout(this.getUserPrograms, 500)
+        }
     }
-  };
-
-  getUserPrograms = () => {
-    if (this.props.userData && !this.state.programs) {
-      API.getUserPrograms(this.props.userData)
-        .then(res => {
-          console.log(res)
-          this.setState({ programs: res.data })
-        })
-        .catch(err => console.log(err));
+    updateUserData = () => {
+        if (this.props.userData !== this.state.userData) {
+            this.setState({ userData: this.props.userData })
+        }
     }
-  }
-  updateUserData = () => {
-    if (this.props.userData !== this.state.userData) {
-      this.setState({ userData: this.props.userData })
+    updatePrograms = () => {
+        API.getUserPrograms(this.props.userData)
+            .then(res => {
+                console.log(res)
+                this.setState({ programs: res.data })
+            })
+            .catch(err => console.log(err));
     }
-  }
-  updatePrograms = () => {
-    API.getUserPrograms(this.props.userData)
-      .then(res => {
-        console.log(res)
-        this.setState({ programs: res.data })
-      })
-      .catch(err => console.log(err));
-  }
 
-  componentDidUpdate() {
-    this.updateUserData();
-    this.getUserWorkouts();
-    this.getUserPrograms();
+    componentDidUpdate() {
+        this.updateUserData();
+        this.getUserWorkouts();
+        this.getUserPrograms();
 
-  }
-  convertDate = (date) => {
-    return moment(date).format('MMMM Do YYYY')
-  }
-  render() {
-    console.log(JSON.stringify(this.props.userData, null, 2))
-    return (
-      <div>
-        <Profile
-          updatePrograms={this.updatePrograms}
-          programs={this.state.programs}
-          userData={this.props.userData}
-        ></Profile>
-        <Grid
-          container
-          spacing={3}
-          style={{ margin: "3rem" }}
-        >
-          <Grid
-            item
-            xs={12}
-            sm={3}
-          >
-            <Calendar></Calendar>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={8}
-          >
-            <Paper component="div">
-              <List>
-                {(this.state.workouts) ? (this.state.workouts.map(workout => (
-                  <ListItem key={`UWO-${workout.id}`} >
-                    <Paper style={{ padding: ".5rem", margin: "1rem", display: 'flex', justifyContent: 'left', overflow: 'hidden' }}>
-                      <Grid container spacing={3}>
-
-                        <Grid item xs={2}>
-                          <img style={{ maxWidth: '90%' }} src="/images/stretching-exercises.png" alt={`${workout.workout.workoutName} Poster Mini`} />
+    }
+    convertDate = (date) => {
+        return moment(date).format('MMMM Do YYYY')
+    }
+    render() {
+        console.log(JSON.stringify(this.props.userData, null, 2))
+        return (
+            <div style={{maxWidth: '100vw', overflowX: 'hidden'}}>
+                <Profile
+                    updatePrograms={this.updatePrograms}
+                    programs={this.state.programs}
+                    userData={this.props.userData}
+                ></Profile>
+                <Grid
+                    container
+                    spacing={3}
+                    style={{ margin: "2.5rem", maxWidth: '100vw' }}
+                >
+                    <Hidden smDown>
+                        <Grid
+                            item
+                            sm={3}
+                        >
+                            <Calendar
+                                style={{
+                                    width: '100%'
+                                }}
+                            ></Calendar>
                         </Grid>
+                    </Hidden>
+                    <Grid
+                        item
+                        xs={10}
+                        sm={8}
+                    >
+                        <Paper component="div" style={{maxWidth: '100vw'}}>
+                            <List>
+                                {(this.state.workouts) ? (this.state.workouts.map(workout => (
+                                    <ListItem key={`UWO-${workout.id}`} >
+                                        <Paper style={{ padding: ".5rem", margin: "1rem", display: 'flex', justifyContent: 'left', overflow: 'hidden' }}>
+                                            <Grid container spacing={3}>
 
-                        <Grid item xs={10} container>
-                          <Grid item xs={12}>
-                            <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
-                              {workout.workout.workoutName}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Typography component='h5' style={{ textAlign: 'left' }}>
-                              <strong>Notes:</strong>{workout.notes}
-                            </Typography>
-                            <Typography component='p'>
+                                                <Grid item sm={2} xs={1}>
+                                                    <img style={{ maxWidth: '90%' }} src="/images/stretching-exercises.png" alt={`${workout.workout.workoutName} Poster Mini`} />
+                                                </Grid>
 
-                            </Typography>
-                          </Grid>
-                          <Grid item xs container>
-                            <Grid item xs={9}>
-                              <Typography component='p' style={{ float: 'left' }}>
-                                <strong>Completed on </strong>{this.convertDate(workout.createdAt)}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                              <Typography component='p' style={{ float: 'left' }}>
-                                <a>Comments</a>
-                              </Typography>
-                            </Grid>
-                          </Grid>
+                                                <Grid item xs={10} container>
+                                                    <Grid item xs={12}>
+                                                        <Typography component="h5" variant='h5' style={{ fontWeight: '500', textTransform: 'capitalize' }}>
+                                                            {workout.workout.workoutName}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography component='h5' style={{ textAlign: 'left' }}>
+                                                            <strong>Notes:</strong>{workout.notes}
+                                                        </Typography>
+                                                        <Typography component='p'>
 
-                        </Grid>
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs container>
+                                                        <Grid item sm={9} xs={12}>
+                                                            <Typography component='p' style={{ float: 'left' }}>
+                                                                <strong>Completed on </strong>{this.convertDate(workout.createdAt)}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item sm={3} xs={12}>
+                                                            <Typography component='p' style={{ float: 'left' }}>
+                                                                <a>Comments</a>
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
 
-                      </Grid>
+                                                </Grid>
+
+                                            </Grid>
 
 
-                    </Paper>
-                  </ListItem>
-                ))) : ""}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>);
-  }
+                                        </Paper>
+                                    </ListItem>
+                                ))) : ""}
+                            </List>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </div>);
+    }
 }
 
 export default Books;
