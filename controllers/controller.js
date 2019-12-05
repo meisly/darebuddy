@@ -111,6 +111,7 @@ module.exports = {
         db.userworkouts
             .findAll({
                 where: { 'userId': req.params.id },
+                order: [['updatedAt', 'DESC']],
                 include: [{
                     model: db.workouts,
                 }]
