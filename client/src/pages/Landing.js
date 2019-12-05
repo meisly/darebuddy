@@ -32,7 +32,7 @@ class Landing extends Component {
           <Grid container style={{ display: 'flex', flexDirection: 'row' }}>
             <Grid item xs={12}>
               <Paper rounded={true} style={{ padding: '1rem', margin: '2rem' }}>
-              <Typography variant="h3" component="h3" style={{ fontWeight: 600 }}>
+              <Typography variant="h4" component="h4" style={{ fontWeight: 600, textAlign: 'center' }}>
                 About Darebuddy
               </Typography>
               <Typography compenent="p">
@@ -47,7 +47,7 @@ class Landing extends Component {
               <Grid container style={{ margin: '0' }}>
                 <Grid item xs={12} sm={6}  md={12} lg={6} style={{ margin: '0' }}>
                   <Paper rounded={true} style={{ padding: '1rem', margin: '2rem' }}>
-                    <Typography variant="h3" component="h3" style={{ fontWeight: 600, color: 'red' }}>
+                    <Typography variant="h4" component="h4" style={{ fontWeight: 600, color: 'red', textAlign: 'center'}}>
                       Darebee
                     </Typography>
                     <Typography compenent="p">
@@ -63,7 +63,7 @@ class Landing extends Component {
                 </Grid>
                 <Grid item xs={12} sm={6} md={12} lg={6} style={{ margin: '0' }}>
                   <Paper rounded={true} style={{ padding: '1rem', margin: '2rem' }}>
-                    <Typography variant="h5" component="h4" style={{ fontWeight: 600 }}>
+                    <Typography variant="h4" component="h4" style={{ fontWeight: 600, textAlign: 'center' }}>
                       Support Darebuddy
                     </Typography>
                     <Typography compenent="p">
