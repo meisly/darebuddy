@@ -31,6 +31,7 @@ const LogInfo = (props) => {
             return;
         }
         setOpen(false);
+        props.clearSelected();
     };
 
     return (
@@ -78,7 +79,10 @@ const LogInfo = (props) => {
                                             .then(res => {
                                                 if (res) {
                                                     handleClickOpen();
-                                                    setTimeout(props.clearSelected, 1000)
+                                                    setTimeout(()=>{
+                                                        props.clearSelected();
+                                                        setOpen(false);
+                                                    }, 2000)
                                                 }
                                             })
                                             .catch(err => {
