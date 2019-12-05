@@ -81,6 +81,8 @@ const Profile = (props) => {
           >
             <Grid item xs={12}>
               <Typography component='h4'>Hi, {user.name} </Typography>
+              <Typography component='h5'>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </Typography>
+
             </Grid>
             <Grid item xs={12}>
 
@@ -89,7 +91,7 @@ const Profile = (props) => {
                   component="div"
                   elevation={2}
                   style={{ padding: "1.5rem" }}>
-                  <Typography variant='h4' component='h4'>Current programs:</Typography>
+                  <Typography variant='h5' component='h5' style={{marginBottom: '1rem'}}>Current programs:</Typography>
                   {props.programs.map(program => (
                     <Grid container spacing={1}>
                       <Grid item xs={12} container style={{ paddingBottom: '0' }}>
@@ -170,7 +172,7 @@ const Profile = (props) => {
                           component='p'
                           style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
                         >
-                          {program.lastCompleted} of {program.length} completed
+                          {program.lastCompleted} of {program.length} workouts completed
                         </Typography>
 
                       </Grid>
@@ -202,7 +204,6 @@ const Profile = (props) => {
                     </Link>
                   </Paper>
                 )}
-              <Typography component='h4'>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </Typography>
 
             </Grid>
             <div name="col1">
