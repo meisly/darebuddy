@@ -54,6 +54,7 @@ const Profile = (props) => {
     );
   }
 
+
   return (
     <Fragment>
       <Paper
@@ -80,11 +81,10 @@ const Profile = (props) => {
           >
             <Grid item xs={12}>
               <Typography component='h4'>Hi, {user.name} </Typography>
-              <Typography component='h4'>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </Typography>
             </Grid>
             <Grid item xs={12}>
 
-              {(props.programs) ? (
+              {(props.programs && props.programs.length > 0) ? (
                 <Paper
                   component="div"
                   elevation={2}
@@ -131,61 +131,87 @@ const Profile = (props) => {
                                 Cancel
                               </Button>
                               <Button
-                                onClick={()=>{
+                                onClick={() => {
                                   console.log(program)
                                   API.deleteUserProgram(program)
-                                    .then(res=>{
+                                    .then(res => {
                                       props.updatePrograms();
                                     })
                                   handleClose();
-                                }} 
-                              color="secondary"
+                                }}
+                                color="secondary"
                               >
-                              Delete
+                                Delete
                               </Button>
                             </DialogActions>
                           </Dialog>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid item xs style={{ paddingTop: '0' }}>
-                      <Link
-                        to={{
-                          pathname: '/log',
-                          state: {
-                            programType: program.category,
-                            programId: program.programId,
-                            programOrder: program.lastCompleted + 1
-                          }
-                        }}
-                      >
-                        <Typography
-                          component='a'
-                          style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
-
+                      <Grid item xs style={{ paddingTop: '0' }}>
+                        <Link
+                          to={{
+                            pathname: '/log',
+                            state: {
+                              programType: program.category,
+                              programId: program.programId,
+                              programOrder: program.lastCompleted + 1
+                            }
+                          }}
                         >
-                          Next workout
+                          <Typography
+                            component='a'
+                            style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
+
+                          >
+                            Next workout
                           </Typography>
-                      </Link>
-                      <Typography
-                        component='p'
-                        style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
-                      >
-                        {program.lastCompleted} of {program.length} completed
+                        </Link>
+                        <Typography
+                          component='p'
+                          style={{ fontSize: '.7rem', marginRight: '2rem', float: 'right' }}
+                        >
+                          {program.lastCompleted} of {program.length} completed
                         </Typography>
 
+                      </Grid>
                     </Grid>
-                    </Grid>
-              ))}
+                  ))}
                 </Paper>
-            ) : ""}
+              ) : (
+                  <Paper
+                    component="div"
+                    elevation={2}
+                    style={{ padding: "1.5rem" }}
+                  >
+                    <Typography
+                      component='h5'
+                      variant='h5'
+                      style={{}}
+                    >
+                      Currently you have no programs selected.
+                  </Typography>
+                    <Link
+                      to={{ pathname: '/log' }}
+                    >
+                      <Typography
+                        component='p'
+                        style={{ textDecoration: 'none' }}
+                      >
+                        Click here to start a new program or find a workout
+                        </Typography>
+                    </Link>
+                  </Paper>
+                )}
+              <Typography component='h4'>You have been using Darebuddy since {(props.userData) ? (moment(props.userData.createdAt).format('MMMM Do YYYY')) : ""} </Typography>
+
             </Grid>
-          <div name="col1">
+            <div name="col1">
 
 
 
-          </div>
-        </Grid>
-        {/* <Grid
+            </div>
+          </Grid>
+          {/* <Grid
             item
             xs={6}
             sm={4}

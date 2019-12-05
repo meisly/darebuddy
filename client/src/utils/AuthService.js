@@ -6,10 +6,10 @@ const CLIENT_DOMAIN = 'broad-truth-4721.auth0.com';
 
 const SCOPE = 'dbdata';
 const AUDIENCE = '/dbdata';
-let REDIRECT = 'https://damp-earth-37383.herokuapp.com/';
+let REDIRECT = 'https://damp-earth-37383.herokuapp.com/user';
 
-if (window.location.host === 'http://localhost:3000/') {
-  REDIRECT = 'http://localhost:3000/';
+if (window.location.host === 'localhost:3000' || document.referrer.indexOf('http://localhost:3000') !== -1) {
+  REDIRECT = 'http://localhost:3000/user';
 } 
 
 const auth = new auth0.WebAuth({

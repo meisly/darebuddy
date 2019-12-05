@@ -17,6 +17,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { Link } from "react-router-dom";
 
 
 
@@ -131,10 +132,16 @@ export default function LogForm(props) {
                             onClick={() => {
                                 handleClose()
                                 setTimeout(props.clearSelected, 300)
-                            }} 
-                            color="primary">
-                            Continue
+                            }}
+                            color="secondary">
+                            Log Another
                         </Button>
+                        <Link to="/user"
+
+                            className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSecondary"
+                            >
+                            Back to Profile
+                        </Link>
                     </DialogActions>
                 </Dialog>
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Profile from "../components/Profile"
-import { Paper, Grid, Typography, Hidden, withWidth } from "@material-ui/core";
+import { Paper, Grid, Typography, Hidden } from "@material-ui/core";
 import Calendar from 'react-calendar';
 import { List, ListItem } from "../components/List";
 import moment from "moment";
@@ -26,7 +26,7 @@ class Books extends Component {
                 })
                 .catch(err => console.log(err));
         } else {
-            setTimeout(this.getUserWorkouts, 500)
+            setTimeout(this.getUserWorkouts, 200)
         }
     };
 
@@ -39,7 +39,7 @@ class Books extends Component {
                 })
                 .catch(err => console.log(err));
         } else {
-            setTimeout(this.getUserPrograms, 500)
+            setTimeout(this.getUserPrograms, 200)
         }
     }
     updateUserData = () => {
@@ -55,7 +55,10 @@ class Books extends Component {
             })
             .catch(err => console.log(err));
     }
-
+    componentDidMount() {
+        this.getUserWorkouts();
+        this.getUserPrograms();
+    }
     componentDidUpdate() {
         this.updateUserData();
         this.getUserWorkouts();
@@ -66,13 +69,16 @@ class Books extends Component {
         return moment(date).format('MMMM Do YYYY')
     }
     render() {
-        console.log(JSON.stringify(this.props.userData, null, 2))
         return (
-            <div style={{maxWidth: '100vw', overflowX: 'hidden'}}>
+            <div style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
                 <Profile
                     updatePrograms={this.updatePrograms}
                     programs={this.state.programs}
                     userData={this.props.userData}
+                    getData={() => {
+                        this.getUserPrograms()
+                        this.getUserWorkouts()
+                    }}
                 ></Profile>
                 <Grid
                     container
@@ -96,7 +102,7 @@ class Books extends Component {
                         xs={10}
                         sm={8}
                     >
-                        <Paper component="div" style={{maxWidth: '100vw'}}>
+                        <Paper component="div" style={{ maxWidth: '100vw' }}>
                             <List>
                                 {(this.state.workouts) ? (this.state.workouts.map(workout => (
                                     <ListItem key={`UWO-${workout.id}`} >
