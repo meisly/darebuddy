@@ -196,44 +196,64 @@ export default function AccordionMenu(props) {
                 <ExpansionPanelDetails>
                     <Box component="div" style={{ width: "100%" }}>
                         <List>
-                            {props.recent.map(workout => {
-                                return (
-                                    <ListItem
-                                        key={`recent-${workout.createdAt}`}
-                                        onClick={props.onClick}
-                                        dataId={`workout-${workout.id}`}
-                                    >
-                                        <Paper
-                                            style={{
-                                                padding: '.5rem',
-                                                lineHeight: '.5rem'
-                                            }}
-                                            elevation={2}>
-                                            <Typography
-                                                component="h6"
-                                                variant="h6"
-                                                style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+                            {(props.recent.length < 1) ? (
+                                <ListItem>
+                                    <Paper
+                                        style={{
+                                            padding: '.5rem',
+                                            lineHeight: '1.3rem'
+                                        }}
+                                        elevation={2}>
+                                        <Typography
+                                            component="p"
+                                            variant="p"
+                                            style={{ textTransform: 'capitalize', textDecoration: 'none', color: 'red' }}
 
+                                        >
+                                            No workouts logged
+                                                </Typography>
+                                    </Paper>
+                                </ListItem>
+                            ) : (
+                                    props.recent.map(workout => {
+                                        return (
+                                            <ListItem
+                                                key={`recent-${workout.createdAt}`}
+                                                onClick={props.onClick}
+                                                dataId={`workout-${workout.id}`}
                                             >
-                                                {workout.workoutName}
-                                            </Typography>
-                                            <Typography
-                                                compnent="p"
-                                                style={{ textTransform: 'capitalize' }}
-                                            >
-                                                Completed {moment(workout.completedAt).format('MMM Do YYYY')}
-                                            </Typography>
-                                            <Typography
-                                                component="p"
-                                            >
-                                                Difficulty: {workout.difficulty}/5
+                                                <Paper
+                                                    style={{
+                                                        padding: '.5rem',
+                                                        lineHeight: '.5rem'
+                                                    }}
+                                                    elevation={2}>
+                                                    <Typography
+                                                        component="h6"
+                                                        variant="h6"
+                                                        style={{ textTransform: 'capitalize', textDecoration: 'none' }}
+
+                                                    >
+                                                        {workout.workoutName}
+                                                    </Typography>
+                                                    <Typography
+                                                        compnent="p"
+                                                        style={{ textTransform: 'capitalize' }}
+                                                    >
+                                                        Completed {moment(workout.completedAt).format('MMM Do YYYY')}
+                                                    </Typography>
+                                                    <Typography
+                                                        component="p"
+                                                    >
+                                                        Difficulty: {workout.difficulty}/5
                                             </Typography>
 
-                                        </Paper>
+                                                </Paper>
 
-                                    </ListItem>
-                                )
-                            })}
+                                            </ListItem>
+                                        )
+                                    })
+                                )}
                         </List>
                     </Box>
                 </ExpansionPanelDetails>
