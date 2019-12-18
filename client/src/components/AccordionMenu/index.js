@@ -9,7 +9,7 @@ import { List, ListItem } from "../List";
 import { Paper, Box } from "@material-ui/core";
 import moment from "moment";
 
-require("./style.css");
+// require("./style.css");
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,6 +20,26 @@ const useStyles = makeStyles(theme => ({
         flexBasis: '100%',
         flexShrink: 0,
     },
+    listOverflowContainer: {
+        '&ul': {
+            margin: '0',
+            listStyleType: 'none',
+            padding: '0',
+        }
+    },
+    MuiExpansionPanelRoot: {
+        '&$expanded': {
+            marginBottom: '0',
+            background: '#f1f1f1'
+        }
+    },
+    MuiTypographyH6: {
+        '&$Root': {
+            '&:hover': {
+                color: 'red'
+            }
+        }
+    }
 }));
 
 export default function AccordionMenu(props) {
@@ -33,7 +53,7 @@ export default function AccordionMenu(props) {
 
     return (
         <div className={classes.root}>
-            {console.log(props.recent)}
+            
             <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
