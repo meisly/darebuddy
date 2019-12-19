@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import AccordionMenu from "../components/AccordionMenu";
 import LogInfo from "../components/LogInfo";
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 import API from "../utils/API";
+import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
 
 class Log extends Component {
@@ -156,13 +157,27 @@ class Log extends Component {
         return (
             <div>
                 <Grid container>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={3}
-                        style={{ margin: "2rem" }}
-                    >
-                        <AccordionMenu
+                    <Hidden smDown>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={3}
+                            style={{ margin: "2rem" }}
+                        >
+                            <AccordionMenu
+                                previous={"Recent Workouts"}
+                                workouts={this.state.workouts}
+                                programs={this.state.programs}
+                                challenges={this.state.challenges}
+                                recent={this.state.recent}
+                                onClick={this.selectProgramOrWorkout}
+                            >
+
+                            </AccordionMenu>
+                        </Grid>
+                    </Hidden>
+                    <Hidden mdUp>
+                        <ResponsiveDrawer
                             previous={"Recent Workouts"}
                             workouts={this.state.workouts}
                             programs={this.state.programs}
@@ -171,8 +186,8 @@ class Log extends Component {
                             onClick={this.selectProgramOrWorkout}
                         >
 
-                        </AccordionMenu>
-                    </Grid>
+                        </ResponsiveDrawer>
+                    </Hidden>
                     <Grid item xs={12} sm={8}>
                         <LogInfo
                             currentlySelected={this.state.currentlySelected}

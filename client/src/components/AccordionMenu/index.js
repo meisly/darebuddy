@@ -9,8 +9,6 @@ import { List, ListItem } from "../List";
 import { Paper, Box } from "@material-ui/core";
 import moment from "moment";
 
-// require("./style.css");
-
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
