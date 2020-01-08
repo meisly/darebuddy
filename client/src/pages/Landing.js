@@ -3,11 +3,13 @@ import { Grid, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 
+
 class Landing extends Component {
+
   state = {
     workout: null,
   };
-
+  
   componentDidMount() {
   }
   getDailyWorkout = () => {
@@ -16,13 +18,32 @@ class Landing extends Component {
 
   render() {
     return (
-      <Grid container>
-        <Grid item xs={12} sm={4} style={{ padding: '1rem', marginTop: '1rem' }}>
+      <Grid 
+        style={{
+          background: '#6C6060'
+        }}
+        container
+      >
+        <Grid item xs={12} sm={4} style={{ padding: '1rem', marginTop: '1rem'}}>
           <Paper rounded={true} style={{ padding: '0.21rem', maxHeight: 'fitcontent' }}>
-            <Typography style={{ width: '100%', color: 'red', fontWeight: 600, textAlign: 'center' }} variant="h4" component="h4">
+            <Typography 
+              style={{ 
+                width: '100%',
+                color: 'red',
+                fontWeight: 600,
+                textAlign: 'center'
+                }} 
+              variant="h4" component="h4">
               Workout of the Day
             </Typography>
-            <img style={{ maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }} src={"https://darebee.com/images/workouts/tough-cookie-workout.jpg"} alt="Workout of the Day Poster" />
+            <img 
+              style={{ 
+                maxWidth: '100%',
+                maxHeight: '100%',
+                overflow: 'hidden'
+                }}
+                src={"https://darebee.com/images/workouts/tough-cookie-workout.jpg"}
+                alt="Workout of the Day Poster" />
             {(this.props.isAuthenticated && this.state.workout) ?
               (
                 <Link
@@ -33,7 +54,15 @@ class Landing extends Component {
                     }
                   }}
                 >
-                  <Typography style={{ width: '100%', color: 'red', fontWeight: 600, textAlign: 'center' }} variant="h4" component="h4">
+                  <Typography 
+                    style={{
+                      width: '100%',
+                      color: 'red',
+                      fontWeight: 600,
+                      textAlign: 'center'
+                      }}
+                    variant="h4"
+                    component="h4">
                       Log this Workout
                   </Typography>
                 </Link>
@@ -50,9 +79,6 @@ class Landing extends Component {
               </Typography>
                 <Typography compenent="p">
                   Darebuddy is a free app for anyone who wants to improve their fitness.  Darebuddy was created for fans of the amazing, open source fitness content provider <a style={{ textDecoration: 'none', color: 'red' }} href="https://darebee.com/"> Darebee </a>but has something to offer for everybody. Whether you just want a way to track your current <a style={{ textDecoration: 'none', color: 'red' }} href="https://darebee.com/"> Darebee </a> program, are interested in beginning a fitness program or just want to break up a monotonous gym routine, Darebuddy is for you!
-                <p>
-                    <a>More info.....</a>
-                  </p>
                 </Typography>
               </Paper>
             </Grid>

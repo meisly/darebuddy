@@ -7,13 +7,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   overflow-x: hidden;
-  background: linear-gradient(220deg, hsla(0, 0%, 0%, 0.12), rgba(255,0,0,0) 70.71%),
+  background-color: #312424;
+  /* background: linear-gradient(220deg, hsla(0, 0%, 0%, 0.12), rgba(255,0,0,0) 70.71%),
   linear-gradient(127deg, rgba(2, 2, 2, 0.12), rgba(0,255,0,0) 70.71%),
-  linear-gradient(336deg, rgba(0, 0, 0, 0.12), rgba(0,0,255,0) 70.71%);
+  linear-gradient(336deg, rgba(0, 0, 0, 0.12), rgba(0,0,255,0) 70.71%); */
 
+}
+
+.MuiPaper-root {
+  background-color: #A9A2A2;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+ul,li {
+  list-style:none;
+  margin:0;
+  padding:0;
 }

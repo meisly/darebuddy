@@ -28,13 +28,14 @@ const useStyles = makeStyles(theme => ({
     MuiExpansionPanelRoot: {
         '&$expanded': {
             marginBottom: '0',
-            background: '#f1f1f1'
+            background: "primary.dark"
+            // background: '#f1f1f1'
         }
     },
     MuiTypographyH6: {
-        '&$Root': {
+        '&$root': {
             '&:hover': {
-                color: 'red'
+                color: 'secondary.dark'
             }
         }
     }
@@ -224,7 +225,7 @@ export default function AccordionMenu(props) {
                                         elevation={2}>
                                         <Typography
                                             component="p"
-                                            variant="p"
+                                            variant="body1"
                                             style={{ textTransform: 'capitalize', textDecoration: 'none', color: 'red' }}
 
                                         >

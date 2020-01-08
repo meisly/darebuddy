@@ -156,7 +156,7 @@ class Log extends Component {
 
         return (
             <div>
-                <Grid container>
+                <Grid container >
                     <Hidden smDown>
                         <Grid
                             item

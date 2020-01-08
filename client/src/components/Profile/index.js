@@ -1,7 +1,6 @@
 // src/components/Profile.js
 
 import React, { Fragment, useState } from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   Grid,
@@ -22,22 +21,9 @@ import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import API from "../../utils/API";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    outline: 'solid #80808038 1px',
-    padding: '1rem'
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: '90%',
-  },
-}));
 
 const Profile = (props) => {
+
   const { loading, user } = useAuth0();
   const [open, setOpen] = useState(false);
 

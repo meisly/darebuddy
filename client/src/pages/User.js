@@ -135,7 +135,7 @@ class Books extends Component {
                                                         </Grid>
                                                         <Grid item sm={3} xs={12}>
                                                             <Typography component='p' style={{ float: 'left' }}>
-                                                                <a>Comments</a>
+                                                                Comments - coming soon
                                                             </Typography>
                                                         </Grid>
                                                     </Grid>

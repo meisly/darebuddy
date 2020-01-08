@@ -10,14 +10,23 @@ import { ThemeProvider, createMuiTheme  } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import API from "./utils/API";
-require("./index.css");
+// require("./index.css");
 
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
 const theme = createMuiTheme({
   palette: {
-    secondary: {main: '#fe0000'},
-    primary: {main: 'rgb(64,64,64)'}
+    secondary: {
+      main: '#fe0000',
+      dark: '#401818',
+      contrastText: '#fff'
+    },
+    primary: {
+      main: '#312424',
+      light: '#6C6060',
+      dark: '#A9A2A2',
+      contrastText: '#fff'
+    }
   },
 });
 

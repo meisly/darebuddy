@@ -34,6 +34,7 @@ const jwtCheck = jwt({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/static/css/index.css', express.static("./client/src/index.css"));
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
