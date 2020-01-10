@@ -3,11 +3,13 @@ import Landing from "./pages/Landing";
 import NavBar from "./components/Navbar";
 import User from "./pages/User";
 import Log from "./pages/Log";
+import About from './pages/About';
 import NoMatch from "./pages/NoMatch";
 import { useAuth0 } from "./react-auth0-spa";
 import PrivateRoute from "./components/PrivateRoute";
 import { ThemeProvider, createMuiTheme  } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 import API from "./utils/API";
 
@@ -65,7 +67,11 @@ function App() {
 
           <Switch>
             <Route exact path="/"
-              render={() => <Landing userData={userData} isAuthenticated={isAuthenticated} />}
+              render={ () => <Landing userData={userData} isAuthenticated={isAuthenticated} />}
+              // render={ () => (isAuthenticated)? <Redirect to='/user' /> : <Landing userData={userData} isAuthenticated={isAuthenticated} />}
+            />
+            <Route exact path="/about"
+              render={() => <About  />}
             />
             <PrivateRoute exact path="/user"
               render={() => <User userData={userData} />}

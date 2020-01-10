@@ -28,8 +28,8 @@ class Landing extends Component {
           </Typography>
           <Typography variant="h4" className="blockEffect infoText"  >
             <div className="blockReveal" >
-              <span>Log in to start using darebuddy to track your Darebee workouts </span>
-              <span>or <a>click here for more info.</a></span>
+              <span><Link to={{pathname: "/user"}}>Login</Link> to start tracking your Darebee workouts </span>
+              <span>or <Link to={{pathname: '/about'}}>click here for more info.</Link></span>
             </div>
           </Typography>
         </Grid>

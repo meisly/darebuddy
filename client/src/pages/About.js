@@ -1,72 +1,18 @@
 import React, { Component } from "react";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 
 
-class Landing extends Component {
 
-  state = {
-    workout: null,
-  };
-  
-  componentDidMount() {
-  }
-  getDailyWorkout = () => {
+class About extends Component {
 
-  }
 
   render() {
     return (
       <Grid 
         container
       >
-        <Grid item xs={12} sm={4} style={{ padding: '1rem', marginTop: '1rem'}}>
-          <Paper rounded={true} style={{ padding: '0.21rem', maxHeight: 'fitcontent' }}>
-            <Typography 
-              style={{ 
-                width: '100%',
-                color: 'red',
-                fontWeight: 600,
-                textAlign: 'center'
-                }} 
-              variant="h4" component="h4">
-              Workout of the Day
-            </Typography>
-            <img 
-              style={{ 
-                maxWidth: '100%',
-                maxHeight: '100%',
-                overflow: 'hidden'
-                }}
-                src={"https://darebee.com/images/workouts/tough-cookie-workout.jpg"}
-                alt="Workout of the Day Poster" />
-            {(this.props.isAuthenticated && this.state.workout) ?
-              (
-                <Link
-                  to={{
-                    pathname: '/log',
-                    state: {
-                      workoutId : this.state.workout.id
-                    }
-                  }}
-                >
-                  <Typography 
-                    style={{
-                      width: '100%',
-                      color: 'red',
-                      fontWeight: 600,
-                      textAlign: 'center'
-                      }}
-                    variant="h4"
-                    component="h4">
-                      Log this Workout
-                  </Typography>
-                </Link>
-              ) :
-              ("")}
-          </Paper>
-        </Grid>
+
         <Grid item xs={12} sm={8}>
           <Grid container style={{ display: 'flex', flexDirection: 'row' }}>
             <Grid item xs={12}>
@@ -122,5 +68,5 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+export default About;
 
