@@ -20,7 +20,7 @@ class Landing extends Component {
         alignItems="center"
         style={{ minHeight: '100vh' }}
       >
-        <Grid item xs={8} offset={2} className="mainLanding">
+        <Grid item md={8} md-offset={2} xs={12} className="mainLanding">
           <Typography variant="h2" className="blockEffect welcomeText" style={{paddingBottom: '10px'}}>
             <div className="blockReveal" >
               Welcome to Darebuddy!

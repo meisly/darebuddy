@@ -20,6 +20,14 @@
 .App-link {
   color: #09d3ac;
 } */
+@media only screen and (max-width: 600px) {
+  h2.blockEffect.welcomeText  {
+    font-size: 2.3rem;
+  }
+  h4.blockEffect.infoText {
+    font-size: 1.5rem;
+  }
+}
 .landingContainer {
   background-image: url('/images/blurredjump.jpg');
   background-size: cover;
