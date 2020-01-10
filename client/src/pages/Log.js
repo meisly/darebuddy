@@ -155,29 +155,15 @@ class Log extends Component {
     render() {
 
         return (
-            <div>
-                <Grid container >
-                    <Hidden smDown>
-                        <Grid
-                            item
-                            xs={12}
-                            sm={3}
-                            style={{ margin: "2rem" }}
-                        >
-                            <AccordionMenu
-                                previous={"Recent Workouts"}
-                                workouts={this.state.workouts}
-                                programs={this.state.programs}
-                                challenges={this.state.challenges}
-                                recent={this.state.recent}
-                                onClick={this.selectProgramOrWorkout}
-                            >
-
-                            </AccordionMenu>
-                        </Grid>
-                    </Hidden>
-                    <Hidden mdUp>
-                        <ResponsiveDrawer
+            <Grid container >
+                <Hidden smDown>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={3}
+                        style={{ margin: "2rem" }}
+                    >
+                        <AccordionMenu
                             previous={"Recent Workouts"}
                             workouts={this.state.workouts}
                             programs={this.state.programs}
@@ -186,20 +172,33 @@ class Log extends Component {
                             onClick={this.selectProgramOrWorkout}
                         >
 
-                        </ResponsiveDrawer>
-                    </Hidden>
-                    <Grid item xs={12} sm={8}>
-                        <LogInfo
-                            currentlySelected={this.state.currentlySelected}
-                            logWorkout={this.logWorkout}
-                            addProgram={this.addProgram}
-                            clearSelected={this.clearSelected}
-                        >
-                        </LogInfo>
-
+                        </AccordionMenu>
                     </Grid>
+                </Hidden>
+                <Hidden mdUp>
+                    <ResponsiveDrawer
+                        previous={"Recent Workouts"}
+                        workouts={this.state.workouts}
+                        programs={this.state.programs}
+                        challenges={this.state.challenges}
+                        recent={this.state.recent}
+                        onClick={this.selectProgramOrWorkout}
+                    >
+
+                    </ResponsiveDrawer>
+                </Hidden>
+                <Grid item xs={12} sm={8}>
+                    <LogInfo
+                        currentlySelected={this.state.currentlySelected}
+                        logWorkout={this.logWorkout}
+                        addProgram={this.addProgram}
+                        clearSelected={this.clearSelected}
+                    >
+                    </LogInfo>
+
                 </Grid>
-            </div>
+            </Grid>
+
         )
     };
 }

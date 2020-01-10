@@ -1,4 +1,5 @@
-body {
+body{
+  min-height: 100vh;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -7,11 +8,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   overflow-x: hidden;
+  /* background-color: rgb(108, 96, 96); */
   background-color: #312424;
-  /* background: linear-gradient(220deg, hsla(0, 0%, 0%, 0.12), rgba(255,0,0,0) 70.71%),
+  background: linear-gradient(220deg, hsla(0, 0%, 0%, 0.12), rgba(255,0,0,0) 70.71%),
   linear-gradient(127deg, rgba(2, 2, 2, 0.12), rgba(0,255,0,0) 70.71%),
-  linear-gradient(336deg, rgba(0, 0, 0, 0.12), rgba(0,0,255,0) 70.71%); */
+  linear-gradient(336deg, rgba(0, 0, 0, 0.12), rgba(0,0,255,0) 70.71%);
 
+}
+.landingContainer {
+  background-image: url('/images/blurredjump.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.mainLanding {
+  background-color: #4018187a;
+  color: #C50000;
+  text-align: center;
+  padding: 10px;
+}
+.menuItem {
+  text-decoration: none;
+  color: black
 }
 
 .MuiPaper-root {

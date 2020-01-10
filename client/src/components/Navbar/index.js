@@ -43,7 +43,7 @@ const NavBar = () => {
             <AppBar position="static" style={{backgroundColor: '#401818'}}>
                 <Toolbar>
                     <Typography style={{fontWeight: 900, fontSize: '2.5rem'}} variant="h5" className={classes.title}> 
-                        <a href="/" style={{textDecoration: 'none', color: 'white'}}>DareBuddy</a>
+                        <a href="/" style={{textDecoration: 'none', color: 'red'}}>DareBuddy</a>
                     </Typography>
                     {!isAuthenticated && (
                         <button
@@ -81,13 +81,13 @@ const NavBar = () => {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={handleClose}>
-                                     <Link to="/log" style={{textDecoration: "none", color: "black"}}>
+                                     <Link to="/log" className="menuItem">
                                          Log a Workout
                                     </Link>
                                 </MenuItem>
                                 
                                 <MenuItem onClick={handleClose}>
-                                    <Link to="/user" style={{textDecoration: "none", color: "black"}}>
+                                    <Link to="/user" className="menuItem">
                                         Profile
                                     </Link>
                                 </MenuItem>

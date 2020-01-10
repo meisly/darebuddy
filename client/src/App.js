@@ -10,7 +10,7 @@ import { ThemeProvider, createMuiTheme  } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import API from "./utils/API";
-// require("./index.css");
+
 
 const ACCESS_TOKEN_KEY = 'darebuddy-access-token';
 
