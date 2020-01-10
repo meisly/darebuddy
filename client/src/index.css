@@ -15,17 +15,7 @@ body{
   linear-gradient(336deg, rgba(0, 0, 0, 0.12), rgba(0,0,255,0) 70.71%);
 
 }
-.landingContainer {
-  background-image: url('/images/blurredjump.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.mainLanding {
-  background-color: #4018187a;
-  color: #C50000;
-  text-align: center;
-  padding: 10px;
-}
+
 .menuItem {
   text-decoration: none;
   color: black
